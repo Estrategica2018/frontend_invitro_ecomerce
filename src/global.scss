@@ -1,0 +1,131 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// swiper.scss
+@import '~swiper/scss';
+@import '~swiper/scss/autoplay';
+@import '~swiper/scss/keyboard';
+@import '~swiper/scss/pagination';
+@import '~swiper/scss/navigation';
+@import '~swiper/scss/scrollbar';
+@import '~swiper/scss/zoom';
+@import '~@ionic/angular/css/ionic-swiper';
+
+@import 'utilities.scss';
+
+@font-face {
+    font-family: 'YoutubeSansBold';
+    src: url('./assets/fonts/youtube-sans/youtube-sans-bold.otf') format('embedded-opentype'),
+        url('./assets/fonts/youtube-sans/youtube-sans-bold.ttf') format('truetype'),
+        url('./assets/fonts/youtube-sans/youtube-sans-bold.svg#YoutubeSansLight') format('svg');
+}
+
+@font-face {
+    font-family: 'YoutubeSansMedium';
+    src: url('./assets/fonts/youtube-sans/youtube-sans-medium.otf') format('embedded-opentype'),
+        url('./assets/fonts/youtube-sans/youtube-sans-medium.ttf') format('truetype'),
+        url('./assets/fonts/youtube-sans/youtube-sans-medium.svg#YoutubeSansLight') format('svg');
+}
+
+@font-face {
+    font-family: 'YoutubeSansLight';
+    src: url('./assets/fonts/youtube-sans/youtube-sans-light.otf') format('embedded-opentype'),
+        url('./assets/fonts/youtube-sans/youtube-sans-light.ttf') format('truetype'),
+        url('./assets/fonts/youtube-sans/youtube-sans-light.svg#YoutubeSansLight') format('svg');
+}
+
+html {
+    --ion-default-font: YoutubeSansMedium !important;
+}
+
+.padding-container {
+    padding: 0px 4em;
+}
+
+@media (max-width: 800px) {
+    .padding-container {
+        padding: 0px 0em;
+    }
+}
+
+$screen-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 800px,
+    lg: 992px,
+    xl: 1200px
+);
+
+@each $size,
+$size-value in $screen-breakpoints {
+    .hide-#{$size} {
+        @media (max-width: $size-value) {
+            display: none;
+        }
+    }
+}
+
+@each $size,
+$size-value in $screen-breakpoints {
+    .show-#{$size} {
+        @media (min-width: $size-value) {
+            display: block;
+        }
+    }
+}
+
+.boder-radius-modal {
+    --border-radius: 2em !important;
+    --width: 60em;
+}
+
+@media (min-width: 768px) {
+    .boder-radius-modal { 
+    }
+}
+
+.boder-radius-modal::part(content) {
+    border-color: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    min-height: 86vh;
+}
+
+/*
+.boder-radius-modal::before {
+    content: "\f007";
+    font-family: FontAwesome;
+    background-color: white;
+    position: absolute;
+    top: 0em;
+    z-index: 11;
+    border-radius: 50%;
+    border: 1px solid rgb(1, 162, 144);
+    color: rgb(1, 162, 144);
+    padding: 0.9vw 1.6em;
+    font-size: 3em;
+  }*/

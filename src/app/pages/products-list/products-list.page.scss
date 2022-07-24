@@ -1,0 +1,68 @@
+.banner-image {
+    height: 30vw !important;
+    width: 100% !important;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
+    text-align: center;
+
+    .banner-image-title,
+    .banner-image-footer,
+    .banner-image-desc {
+        color: var(--ion-color-primary-contrast);
+        font-family: YoutubeSansLight;
+    }
+
+    .banner-image-desc {
+        width: 50%;
+        margin: auto;
+    }
+
+    .banner-image-title {
+        font-family: YoutubeSansBold;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .banner-image-desc {
+            width: 70%;
+        }
+    }
+
+}
+
+
+
+.products-section {
+    padding: 2vw;
+    text-align: center;
+
+    .product-title-section {
+        color: rgb(0, 74, 65);
+    }
+    
+    .product-legend {
+        padding: 1em;
+    }
+
+    .product-image {
+        width: 100%;
+    }
+
+    @media screen and (max-width: 800px) {
+        .product-image {
+            width: 60%;
+        }
+    }
+
+    .product-title {
+        color: rgb(0, 74, 65);
+    }
+
+    .product-detail {
+        color: rgb(3, 196, 169);
+    }
+
+    .product-price {
+        color: rgb(0, 74, 65);
+    }
+}

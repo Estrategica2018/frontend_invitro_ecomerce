@@ -1,0 +1,126 @@
+.title {
+    color: rgb(0, 74, 65);
+    margin-bottom: 1vw;
+    margin-top: 1vw;
+}
+
+@media (max-width: 800px) {
+    .title {
+        margin-top: 3vw;
+        margin-bottom: 2.5vw;
+    }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 800px) {
+    .title {
+        margin-bottom: 2vw;
+    }
+}
+
+.sub-menu {
+    .sub-menu-item {
+        font-family: YoutubeSansLight;
+        --min-height: 3vw;
+    }
+
+    
+    @media (max-width: 800px) {
+        .sub-menu-item {
+            --min-height: 4.2vw;
+        }
+    }
+}
+
+.contact-section {
+    margin-left: 0vw !important;
+
+    div {
+        margin-top: 0.4vw;
+    }
+}
+
+.social-main-icon {
+    width: 12vw;
+    height: 8vw;
+}
+
+@media (max-width: 800px) {
+    .contact-section {
+        margin-left: 0vw !important;
+        padding-left: 5vw !important;
+    }
+
+    .social-main-icon {
+        width: 24vw;
+        height: 14vw;
+    }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 800px) {
+    .contact-section {
+        margin-left: 0vw !important;
+    }
+
+    .social-main-icon {
+        width: 18vw;
+        height: 11vw;
+    }
+}
+
+.address,
+.phone,
+.phone2,
+.email {
+    display: flex;
+
+    .icon {
+        margin: 0.4vw 1vw;
+    }
+
+    .value {
+        font-family: YoutubeSansLight;
+    }
+}
+
+.social-media {
+    margin-top: 3vw;
+
+    .icon {
+        margin: 1vw;
+        font-size: 2.5vw;
+    }
+
+    .twitter {
+        color: rgb(58, 172, 239);
+    }
+
+    .icon.facebook {
+        color: rgb(59, 90, 152);
+    }
+
+    .icon.google {
+        color: rgb(221, 75, 57);
+    }
+
+    .icon.instagram {
+        color: rgb(73, 114, 154);
+    }
+
+    .icon.pinterest {
+        color: rgb(203, 32, 38);
+    }
+
+    .icon.snapchat {
+        color: rgb(245, 226, 77);
+    }
+}
+
+@media (max-width: 800px) {
+    .social-media {
+        margin-top: 2vw;
+
+        ion-icon {
+            font-size: 5vw;
+        }
+    }
+}

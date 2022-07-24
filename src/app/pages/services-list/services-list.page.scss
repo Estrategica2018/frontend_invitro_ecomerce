@@ -1,0 +1,79 @@
+.banner-image {
+    height: 30vw !important;
+    width: 100% !important;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
+    text-align: center;
+
+    .banner-image-title,
+    .banner-image-footer,
+    .banner-image-desc {
+        color: var(--ion-color-primary-contrast);
+        font-family: YoutubeSansLight;
+    }
+
+    .banner-image-desc {
+        width: 50%;
+        margin: auto;
+    }
+
+    .banner-image-title {
+        font-family: YoutubeSansBold;
+    }
+
+    @media (max-width: 1200px) {
+        .banner-image-desc {
+            width: 70%;
+        }
+    }
+
+}
+
+
+.services-section {
+
+    .title {
+        color: var(--ion-color-primary-contrast);
+        font-family: YoutubeSansBold;
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+        top: 0;
+        width: 56%;
+        margin: auto;
+        padding-bottom: 0.5vw;
+        border-bottom: 0.2vw solid white;
+    }
+    
+    ion-col {
+        padding: 1vw;
+        height: 18vw;
+        text-align: center;
+    }
+
+    .service-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 18vw;
+        opacity: 1;
+        max-width: 100%;
+        filter: brightness(0.7);
+    }
+
+    @media (max-width: 800px) {
+
+        .title {
+            width: 50%;
+        }
+
+        ion-col,
+        .service-img {
+            height: 33vw;
+            width: 90%;
+            margin-left: 2.5%;
+        }
+    }
+}

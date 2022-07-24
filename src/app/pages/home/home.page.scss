@@ -1,0 +1,452 @@
+.swiper-image {
+    height: 30vw !important;
+    width: 100% !important;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
+
+    .swiper-image-title,
+    .swiper-image-name,
+    .swiper-image-desc {
+        color: var(--ion-color-primary-contrast);
+        font-family: YoutubeSansLight;
+        position: relative;
+        z-index: 2;
+    }
+
+    img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        opacity: 1;
+    }
+
+    .swiper-image-title {
+        margin-top: 11vw !important;
+    }
+
+    @media (max-width: 800px) {
+        .swiper-image {
+            height: 33vw !important;
+        }
+        .swiper-image-title {
+            margin-top: 5vw !important;
+        }
+    }
+
+    .swiper-image-name {
+        font-family: YoutubeSansBold;
+        font-size: 3vw;
+    }
+
+    .swiper-image-desc {
+        width: 70%;
+        margin: auto;
+        margin-bottom: 2vw !important;
+    }
+
+}
+
+
+::ng-deep .swiper-button-next,
+::ng-deep .swiper-button-prev {
+    --swiper-theme-color: white;
+    --swiper-navigation-size: 1em;
+    padding: 20px !important;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+
+.services-info-flex.large-screen {
+    width: 100%;
+    display: flex;
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+
+    .services-info-image {
+        width: 57%;
+        height: 34vw;
+    }
+
+    .services-info-legend {
+        position: relative;
+        width: 84%;
+        left: -9%;
+        background: white;
+        top: 8vw;
+        padding: 2vw;
+        height: fit-content;
+
+
+    }
+}
+
+.services-info-flex.small-screen {
+    width: 100%;
+    padding-top: 3vw;
+    margin-bottom: 2vw;
+    text-align: center;
+
+    .services-info-image {
+        width: 80%;
+        height: auto;
+    }
+}
+
+.services-info-flex-left {
+    width: 100%;
+    display: flex;
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+    text-align: center;
+
+    .services-info-image {
+        width: 100vw;
+        height: 33vw;
+        margin: auto;
+    }
+
+    .services-info-legend {
+        position: relative;
+        left: 6vw;
+        background: white;
+        top: 8vw;
+        padding: 2vw;
+        height: fit-content;
+    }
+}
+
+.services-info-flex-left.small-screen {
+    display: block;
+
+    .services-info-image {
+        width: 80%;
+        height: auto;
+    }
+
+    .services-info-legend {
+        position: relative;
+        left: 1vw;
+        background: white;
+        top: 1vw;
+        padding: 2vw;
+        height: -moz-fit-content;
+        height: fit-content;
+    }
+
+}
+
+
+.services-info-right.large-screen ion-row {
+    padding-top: 3vw;
+    margin-bottom: 2vw;
+
+    ion-col {
+        .services-info-image {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.services-info-right.small-screen {
+    padding-top: 3vw;
+    margin-bottom: 2vw;
+    text-align: center;
+
+    ion-col {
+        .services-info-image {
+            width: 80%;
+            height: auto;
+        }
+    }
+}
+
+.services-info-legend.large-screen {
+    padding: 2vw;
+
+    .title-legend {
+        color: rgb(0, 74, 65);
+        font-size: 2.2vw;
+    }
+
+    .description-legend {
+        font-family: YoutubeSansLight;
+        width: 40vw;
+        height: auto;
+        margin-top: 1vw;
+        margin-bottom: 1vw;
+        font-size: 1.3vw;
+    }
+
+    .button-legend {
+        font-family: YoutubeSansMedium;
+        font-size: 1vw;
+    }
+}
+
+.services-info-legend.small-screen {
+    padding: 2vw;
+    background: white;
+    text-align: center;
+
+    .title-legend {
+        color: rgb(0, 74, 65);
+        font-size: 4.2vw;
+    }
+
+    .description-legend {
+        font-family: YoutubeSansLight;
+        font-size: 3vw;
+        width: 100%;
+        height: auto;
+        margin-top: 1vw;
+        margin-bottom: 1vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .button-legend {
+        font-family: YoutubeSansMedium;
+        font-size: 2vw;
+    }
+}
+
+.linear-color-blue {
+    background: linear-gradient(90deg, rgba(0, 212, 255, 0.1) 57%, rgb(255, 255, 255) 77%);
+}
+
+.linear-color-blue-2 {
+    background: linear-gradient(131deg, rgba(0, 212, 255, 0.1) 21%, rgb(255, 254, 255) 57%);
+}
+
+.background-gray {
+    background: rgba(247, 249, 251, 0.6);
+}
+
+
+.new-product {
+    padding: 2vw;
+    text-align: center;
+
+    .new-product-legend {
+        padding: 1em;
+    }
+
+    .product-image {
+        width: 100%;
+    }
+
+    .product-title-section {
+        font-size: 2.2vw;
+        color: rgb(0, 74, 65);
+    }
+
+    .product-title {
+        color: rgb(0, 74, 65);
+        font-size: 1.5vw;
+    }
+
+    .product-detail {
+        color: rgb(3, 196, 169);
+    }
+
+    .product-price {
+        color: rgb(0, 74, 65);
+    }
+}
+
+.new-product.small-screen {
+
+    .product-image {
+        width: 60%;
+    }
+
+    .product-title-section {
+        font-size: 5vw;
+    }
+
+    .product-title {
+        font-size: 3.2vw;
+    }
+}
+
+.colaboration-container {
+    padding: 0vw 4vw;
+}
+
+.colaborations-panel {
+    width: 30%;
+    padding: 2vw;
+
+    .title-section {
+        color: rgb(0, 74, 65);
+        font-size: 2.2vw;
+        margin-top: 2vw;
+    }
+
+    .colaboration-image {
+        width: 8vw;
+        height: 8vw;
+        border-radius: 50%;
+    }
+
+    .colaborations-section {
+
+        border: 1px solid rgb(220, 220, 220, 0.5);
+        background: white;
+        margin-top: -4vw;
+        padding: 2vw;
+        text-align: center;
+
+        .panel-title {
+            margin: auto;
+            color: rgb(0, 74, 65);
+        }
+
+        .title-section {
+            font-size: 2.2vw;
+            margin: auto;
+            color: rgb(0, 74, 65);
+        }
+
+        .panel-label {
+            font-size: 1vw;
+            font-family: YoutubeSansLight;
+        }
+
+        .panel-desc {
+            font-size: 1vw;
+            font-family: YoutubeSansLight;
+            margin-top: 3vw;
+            min-height: 5vw;
+        }
+
+        .panel-date {
+            font-size: 1.2vw;
+            font-family: YoutubeSansLight;
+        }
+
+        .panel-points {
+
+            justify-content: center;
+
+            .star fa-icon {
+                color: #ddd;
+            }
+
+            .star.selected fa-icon {
+                color: rgb(250, 169, 2);
+            }
+        }
+
+        .panel-name {
+            color: rgb(101, 194, 0);
+            font-size: 1.5vw;
+            font-family: YoutubeSansMedium;
+        }
+
+        .panel-payment {
+            font-size: 1.5vw;
+        }
+    }
+}
+
+
+
+.colaborations-panel.small-screen {
+
+    padding: 2vw !important;
+
+    .title-section {
+        font-size: 5vw;
+        margin-top: 7vw;
+    }
+
+    .colaboration-image {
+        width: 15vw;
+        height: 15vw
+    }
+
+    .colaborations-section {
+
+        padding: 4vw;
+        width: 80vw;
+        margin-top: -7vw;
+        margin-left: auto;
+        margin-right: auto;
+
+        .panel-title {
+            margin-top: 5vw !important;
+        }
+
+        .title-section {
+            font-size: 2.2vw;
+        }
+
+        .panel-label {
+            font-size: 3vw;
+        }
+
+        .panel-desc {
+            font-size: 3vw;
+            margin-top: 2vw;
+        }
+
+        .panel-name {
+            font-size: 4vw;
+        }
+
+        .panel-payment {
+            font-size: 3vw;
+        }
+
+        .panel-date {
+            font-size: 3vw;
+            margin-bottom: 4vw;
+        }
+    }
+
+}
+
+@media (max-width: 1012px) {
+    .colaboration-container {
+        padding: 1vw;
+    }
+
+    .colaborations-panel {
+        padding: 1vw;
+    }
+}
+
+.circle-section {
+    .circle {
+        width: 1vw;
+        height: 1vw;
+        border: 1px solid rgb(112, 112, 112);
+        background: rgb(255, 255, 255);
+        border-radius: 50%;
+        margin: 1vw;
+        cursor: pointer;
+    }
+
+    .circle:hover {
+        background: rgb(112, 112, 112);
+    }
+
+    .circle.selected {
+        background: rgb(174, 173, 231);
+    }
+}
+
+
+.circle-section.small-screen {
+    .circle {
+        width: 2vw;
+        height: 2vw;
+        margin: 1vw;
+    }
+}

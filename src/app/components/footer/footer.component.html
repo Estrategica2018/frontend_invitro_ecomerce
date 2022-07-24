@@ -1,0 +1,48 @@
+<p class="padding-container">
+  <ion-grid>
+    <ion-row>
+      <ion-col [size]="largeScreen ? footer.size : mediumScreen ? 4 : 12 " *ngFor="let footer of appFooterPages">
+        <div class="title fs-1">
+          {{footer.title}}
+        </div>
+        <div class="sub-menu">
+          <ion-item button="true" class="sub-menu-item fs-0" *ngFor="let subMenu of footer.subMmenu"
+            (click)="goToUrl(subMenu.url)">
+            {{subMenu.title}}</ion-item>
+        </div>
+      </ion-col>
+      <ion-col [size]="largeScreen ? 5 :  12" class="contact-section fs-0">
+        <img [src]="contact.url_icon" class="social-main-icon">
+        <div class="address" *ngIf="contact.address">
+          <div class="icon">
+            <ion-icon md="location-outline" ios="location-sharp"></ion-icon>
+          </div>
+          <div class="value">{{contact.address}} - {{mediumScreen}}</div>
+        </div>
+        <div class="phone" *ngIf="contact.phone">
+          <div class="icon">
+            <ion-icon md="call-outline" ios="call-sharp"></ion-icon>
+          </div>
+          <div class="value">{{contact.phone}}</div>
+        </div>
+        <div class="phone2" *ngIf="contact.phone2">
+          <div class="icon"><ion-icon md="call-outline" ios="call-sharp"></ion-icon></div>
+          <div class="value">{{contact.phone2}}</div>
+        </div>
+        <div class="email" *ngIf="contact.email">
+          <div class="icon"><ion-icon md="mail-outline" ios="mail-sharp"></ion-icon></div>
+          <div class="value">{{contact.email}}</div>
+        </div>
+        <div class="social-media d-flex mt-2">
+          <div *ngFor="let social of contact.socialMedia">
+            <a [href]="social.url" target="_blank">
+              <div class="icon {{social.icon}}">
+                <ion-icon name="logo-{{social.icon}}"></ion-icon>
+              </div>
+            </a>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</p>

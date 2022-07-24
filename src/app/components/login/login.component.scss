@@ -1,0 +1,184 @@
+.close-modal {
+  position: absolute;
+  right: 1.2em;
+  font-size: 2.5em;
+  cursor: pointer;
+}
+
+.logo-float {
+  z-index: 11;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 0.1em;
+  background-color: white;
+  border-radius: 50%;
+  border: .06em solid rgb(1, 162, 144);
+  color: rgb(1, 162, 144);
+  padding: 0.1vw 0.8em;
+  font-size: 5em;
+  width: 0;
+
+  .icon {
+    margin-left: -0.5em;
+  }
+}
+
+.min-height-content {
+  height: 38em;
+  overflow: auto;
+}
+
+.card {
+  position: absolute;
+  top: 5em;
+  border-radius: 6%;
+}
+
+.alert-danger {
+  margin: auto;
+}
+
+.fs-0 {
+  font-size: 1.4em;
+}
+
+.logo-session {
+  margin-top: 1em;
+}
+
+.title-modal {
+  color: rgb(1, 162, 144);
+}
+
+input {
+  background-color: rgb(229, 249, 241);
+  border-color: rgb(116, 222, 205);
+}
+
+.button-green {
+  --background: rgb(3, 196, 169);
+}
+
+.button-href-no-border {
+  --border-color: transparent;
+  border-bottom: 1px solid;
+}
+
+@media screen and (max-width:800px) {
+  .password-recovery {
+    margin-top: 13vw !important;
+  }
+}
+
+.acceptTerms {
+  position: absolute;
+  top: 1em;
+  left: 3em;
+}
+
+ion-checkbox {
+  width: 2.6em;
+  height: 2em;
+}
+
+.login-logo {
+  padding: 83px 0 0 0;
+  min-height: 175px;
+  text-align: center;
+}
+
+.login-logo img {
+  max-width: 150px;
+}
+
+.list {
+  margin-bottom: 0;
+}
+
+.invalid-feedback {
+  font-size: 1.4em;
+}
+
+ion-item.item-has-focus>ion-label {
+  color: var(--color) !important;
+}
+
+ion-input {
+  font-size: 1em;
+}
+
+.back-button {
+  position: absolute;
+  left: 2.5em;
+  top: 0.5em;
+  font-size: 1.7em;
+  border-radius: 15px;
+  padding-top: 3px;
+  padding-left: 13px;
+  height: 31px;
+  width: 175px;
+
+  ion-icon {
+    font-size: 1.5em;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+  }
+
+  div {
+    position: absolute;
+    top: 2px;
+    left: 1.7em;
+  }
+}
+
+
+.forward-button {
+  position: absolute;
+  right: 3em;
+  top: 0.5em;
+  font-size: 1.7em;
+  border-radius: 15px;
+  padding-top: 3px;
+  padding-left: 13px;
+  height: 31px;
+  width: 175px;
+
+  ion-icon {
+    font-size: 1.5em;
+    position: absolute;
+    left: 133px;
+    top: 0px;
+  }
+
+  div {
+    position: absolute;
+    top: 0px;
+  }
+}
+
+
+.back-button:hover,
+.forward-button:hover {
+  background-color: #F0F0F0;
+  transition: background-color .5s;
+}
+
+.title-modal {
+  margin-top: 1.8em;
+}
+
+.min-height {
+  min-height: 50em;
+}
+
+.min-height-register {
+  height: 43em;
+  overflow: auto;
+}
+
+
+.delete-terms {
+  left: 1.4em;
+  position: absolute;
+}

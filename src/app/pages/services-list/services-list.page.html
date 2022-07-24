@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border  padding-container">
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="padding-container">
+        <ion-row>
+            <div class="banner-image" [style]="{'background-image': 'url('+banner.url+')'}">
+                <div class="banner-image-title fs-3 mt-4">{{banner.title}}</div>
+                <div class="banner-image-desc fs-1 mt-2">{{banner.description}}</div>
+                <div class="banner-image-footer fs-0 mt-1 pl-6">{{banner.footer}}</div>
+            </div>
+        </ion-row>
+
+        <ion-grid class="mt-2 p-0">
+            <ion-row class="services-section p-0">
+                <ion-col *ngFor="let service of services; let i = index;" [size]="largeScreen ? i == 0 || i == 1 || i == 5 || i == 6 ? 6 : 
+                                      i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 9 ? 4 : 12 : 12 ">
+                    <div class="title fs-2 mt-4">{{service.name}}</div>
+                    
+                    <img class="service-img" [src]="service.url_image" [ngClass]="{'pr-1' : largeScreen && (i == 0 || i == 2 || i == 3 || i == 5 || i == 7 || i == 8) ,
+                                'pl-1' : largeScreen && (i == 1 || i == 3 || i == 4 || i == 6 || i == 8 || i == 9),
+                                'pt-1' : (largeScreen && (i >= 2) ) || ( !largeScreen && i > 0)
+                               }">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <app-footer></app-footer>
+</ion-content>

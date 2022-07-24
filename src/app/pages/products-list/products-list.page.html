@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border  padding-container">
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="padding-container">
+        <ion-row>
+            <div class="banner-image" [style]="{'background-image': 'url('+banner.url+')'}">
+                <div class="banner-image-title fs-3 mt-4">{{banner.title}}</div>
+                <div class="banner-image-desc fs-1 mt-2">{{banner.description}}</div>
+                <div class="banner-image-footer fs-0 mt-1 pl-6">{{banner.footer}}</div>
+            </div>
+        </ion-row>
+        <ion-row>
+            <ion-grid class="products-section linear-color-blue-2 ion-text-center">
+                <ion-row>
+                    <ion-col class="product-legend" [size]="largeScreen ? 4 : 12"
+                        *ngFor="let product of products">
+                        <img class="product-image shadow-box-2" [src]="product.image_url">
+                        <div class="product-title mt-1">{{product.name}}</div>
+                        <div class="mt-1 product-detail">{{product.attr1}}</div>
+                        <div class="mt-0 product-detail">{{product.attr2}}</div>
+                        <div class="mt-1 product-price">{{product.price}}</div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-row>
+    </div>
+    <app-footer></app-footer>
+</ion-content>

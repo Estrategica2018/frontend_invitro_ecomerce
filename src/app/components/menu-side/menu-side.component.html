@@ -1,0 +1,36 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-menu-button *ngIf="!largeScreen"></ion-menu-button>
+  </ion-buttons>
+
+  <ion-buttons class="d-flex w-100">
+    <ion-img [ngStyle]="{'margin-left': largeScreen ? '3vw' : '0em'} " slot="start" class="icon-img" [src]="site?.icon">
+    </ion-img>
+
+    <ion-segment [value]="'menu-item-'+segmentInit" *ngIf="largeScreen">
+      <ion-segment-button [value]="'menu-item-' + i" class="menu-title" *ngFor="let p of appPages; let i = index"
+        (click)="goToUrl(p.url)">
+        <ion-label>{{ p.title }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    
+  </ion-buttons>
+
+  <ion-buttons slot="end">
+    <ion-button (click)="openShoppingCart()" *ngIf="userDataSession" [hidden]="showBannerSideMenu">
+      <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+    </ion-button>
+    <ion-badge [hidden]="showBannerSideMenu" class="icon-badge" color="danger"
+      *ngIf="userDataSession && shoppingCartCount > 0">{{shoppingCartCount}}</ion-badge>
+    <ion-button [hidden]="showBannerSideMenu" class="d-md-flex end-menu-button" color="secondary"
+      (click)="presenterLogin()" *ngIf="!loggedIn" fill="outline" shape="round">
+      <ion-icon slot="start" ios="ios-person" md="person"></ion-icon>
+      Acceder
+    </ion-button>
+    <ion-button [hidden]="showBannerSideMenu" class="d-md-flex cursor-pointer" *ngIf="loggedIn"
+      (click)="presentAccount()">
+      <ion-icon slot="start" ios="ios-person" md="person"></ion-icon>
+      Cuenta
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>

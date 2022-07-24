@@ -1,0 +1,216 @@
+<ion-header class="ion-no-border  padding-container">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="padding-container">
+    <ion-row>
+      <swiper [autoplay]="true" [keyboard]="true" [navigation]="true" class="swiper">
+        <ng-template swiperSlide *ngFor="let swiper of swiperList">
+          <!--[style]="{'background-image': 'url('+swiper.url+')'}"-->
+          <div class="swiper-image">
+            <img [src]="swiper.url">
+            <div class="swiper-image-title fs-1">{{swiper.title}}</div>
+            <div class="swiper-image-name fs-3">{{swiper.name}}</div>
+            <div class="swiper-image-desc fs-1 mt-1 mb-1">{{swiper.description}}</div>
+            <div class="swiper-image-button">
+              <ion-button color="success" class="fs-0" shape="round">Comprar ahora</ion-button>
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+    </ion-row>
+
+    <ion-row>
+      <div class="services-info-flex linear-color-blue"
+        [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+        <img class="services-info-image shadow-box"
+          src="https://res.cloudinary.com/deueufyac/image/upload/v1657400514/e-commerce/162435765_194372269158134_2879542145092440238_n_qiidnu.jpg">
+        <div class="services-info-legend" [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+          <div class="title-legend">Acerca de In Vitro Colombia</div>
+          <div class="description-legend">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut posuere magna. In hac habitasse platea
+            dictumst. In sed consequat turpis. Donec sapien mi, viverra id nulla vel, luctus tempor erat. Pellentesque
+            scelerisque felis nec risus eleifend condimentum. Curabitur sagittis pharetra ultricies. Nulla facilisi.
+          </div>
+          <div>
+            <ion-button color="success" class="button-legend" shape="round">Conoce más de nosotros</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-row>
+
+    <ion-row>
+      <ion-grid class="services-info-right background-gray"
+        [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+        <ion-row>
+          <ion-col [size]="largeScreen ? 6 : 12">
+            <img class="services-info-image shadow-box"
+              src="https://invitrocolombia.com.co/wp-content/uploads/2021/03/aspira1-2-1024x683.jpg">
+          </ion-col>
+          <ion-col [size]="largeScreen ? 6 : 12" class="services-info-legend"
+            [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+            <div class="title-legend"> Nuestros servicios </div>
+            <div class="description-legend">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut posuere magna. In hac habitasse platea
+              dictumst. In sed consequat turpis. Donec sapien mi, viverra id nulla vel, luctus tempor erat. Pellentesque
+              scelerisque felis nec risus eleifend condimentum. Curabitur sagittis pharetra ultricies. Nulla facilisi.
+            </div>
+            <div>
+              <ion-button color="success" class="button-legend" shape="round">Ver servicios</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+
+    <ion-row>
+      <ion-grid class="services-info-right background-gray"
+        [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+        <ion-row *ngIf="largeScreen">
+          <ion-col size="6" class="services-info-legend"
+            [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+            <div class="title-legend">Nuestros productos</div>
+            <div class="description-legend">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut posuere magna. In hac habitasse platea
+              dictumst. In sed consequat turpis. Donec sapien mi, viverra id nulla vel, luctus tempor erat. Pellentesque
+              scelerisque felis nec risus eleifend condimentum. Curabitur sagittis pharetra ultricies. Nulla facilisi.
+            </div>
+            <div>
+              <ion-button color="success" class="button-legend" shape="round">Ver productos</ion-button>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <img class="services-info-image shadow-box"
+              src="https://invitrocolombia.com.co/wp-content/uploads/2021/03/bovino-1024x683.jpg">
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!largeScreen">
+          <ion-col size="12">
+            <img class="services-info-image shadow-box"
+              src="https://invitrocolombia.com.co/wp-content/uploads/2021/03/bovino-1024x683.jpg">
+          </ion-col>
+          <ion-col size="12" class="services-info-legend"
+            [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+            <div class="title-legend">Nuestros productos</div>
+            <div class="description-legend">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut posuere magna. In hac habitasse platea
+              dictumst. In sed consequat turpis. Donec sapien mi, viverra id nulla vel, luctus tempor erat. Pellentesque
+              scelerisque felis nec risus eleifend condimentum. Curabitur sagittis pharetra ultricies. Nulla facilisi.
+            </div>
+            <div>
+              <ion-button color="success" class="button-legend" shape="round">Ver productoss</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+    <ion-row>
+      <ion-grid class="new-product linear-color-blue-2 ion-text-center"
+        [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+        <ion-row>
+          <ion-col>
+            <div class="product-title-section">Nuevos productos</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="new-product-legend" [size]="largeScreen ? 4 : 12" *ngFor="let product of newProducts">
+            <img class="product-image shadow-box-2" [src]="product.image_url">
+            <div class="product-title mt-1">{{product.name}}</div>
+            <div class="mt-1 product-detail">{{product.attr1}}</div>
+            <div class="mt-0 product-detail">{{product.attr2}}</div>
+            <div class="mt-1 product-price">{{product.price}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+    <ion-row>
+      <ion-grid class="background-gray ion-text-center">
+        <ion-row>
+          <ion-col class="colaborations-panel" [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+            <div class="title-section">Nuestros compradores hablan por nosotros</div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="colaboration-container">
+          <ion-col class="colaborations-panel" *ngFor="let colaboration of colaborationFilterList; let i = index;"
+            [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen, 'opacity-0': colaboration.noShow, 'd-none': !largeScreen && colaboration.noShow }"
+            [ngStyle]="{'height': !largeScreen && colaboration.noShow ? '0px' : ''}"
+             [size]="largeScreen ? 4 : 12">
+            <img class="colaboration-image" [src]="colaboration.url_image">
+            <div class="colaborations-section shadow-box">
+              <div class="panel-title mt-2 fs-2">{{colaboration.title}}</div>
+              <div class="panel-desc mt-1 fs-1">
+                {{colaboration.comment}}
+              </div>
+              <div class="mt-1 panel-points d-flex">
+                <div class="star" [ngClass]="{'selected': colaboration.qualification >=1 }">
+                  <fa-icon icon="star"></fa-icon>
+                </div>
+                <div class="star" [ngClass]="{'selected': colaboration.qualification >=2 }">
+                  <fa-icon icon="star"></fa-icon>
+                </div>
+                <div class="star" [ngClass]="{'selected': colaboration.qualification >=3 }">
+                  <fa-icon icon="star"></fa-icon>
+                </div>
+                <div class="star" [ngClass]="{'selected': colaboration.qualification >=4 }">
+                  <fa-icon icon="star"></fa-icon>
+                </div>
+                <div class="star" [ngClass]="{'selected': colaboration.qualification ==5 }">
+                  <fa-icon icon="star"></fa-icon>
+                </div>
+              </div>
+              <div class="mt-1 panel-label">Producto comprado:</div>
+              <div class="mt-0 panel-payment">{{colaboration.product}}</div>
+              <div class="mt-2 panel-name">{{colaboration.name}}</div>
+              <div class="mt-1 panel-date">{{colaboration.date}}</div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="w-100">
+          <div class="circle-section d-flex m-auto"
+            [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+            <div *ngFor="let val of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
+              <div class="circle" [ngClass]="{'selected': sectionColaboration == val}"
+                (click)="changeColaborationSection(val)" *ngIf="colaborationList.length > 1 + ( (val - 1 ) * 3)">
+              </div>
+            </div>
+          </div>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+
+    <ion-row>
+      <div class="services-info-flex-left large-screen linear-color-blue" *ngIf="largeScreen">
+        <div class="services-info-legend" [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+          <div class="title-legend">Conctáctanos</div>
+          <div class="description-legend">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut posuere magna. In hac habitasse platea
+            dictumst. In sed consequat turpis.
+          </div>
+          <div>
+            <ion-button color="success" class="button-legend" shape="round">Envíanos un correo</ion-button>
+          </div>
+        </div>
+        <img class="services-info-image"
+          src="https://res.cloudinary.com/deueufyac/image/upload/v1658077897/e-commerce/contact_byyxv9.png">
+      </div>
+
+      <div class="services-info-flex-left small-screen linear-color-blue" *ngIf="!largeScreen">
+        <img class="services-info-image"
+          src="https://res.cloudinary.com/deueufyac/image/upload/v1658077897/e-commerce/contact_byyxv9.png">
+        <div class="services-info-legend" [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
+          <div class="title-legend">Conctáctanos</div>
+          <div class="description-legend">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut posuere magna. In hac habitasse platea
+            dictumst. In sed consequat turpis.
+          </div>
+          <div>
+            <ion-button color="success" class="button-legend" shape="round">Envíanos un correo</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-row>
+  </div>
+  <app-footer></app-footer>
+</ion-content>
