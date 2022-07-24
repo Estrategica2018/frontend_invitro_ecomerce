@@ -3,8 +3,14 @@ ion-toolbar {
 }
 
 .icon-img {
-    width: 6em;
+    width: 7vw;
     height: auto;
+}
+
+@media screen and (max-width:800px) {
+    .icon-img {
+        width: 16vw;
+    }
 }
 
 .menu-title {
@@ -24,4 +30,16 @@ ion-segment .menu-title:first-of-type {
 
 ion-segment > .menu-title:last-child {
     margin-right: auto;
+}
+
+.end-menu-button::part(native) {
+    width: 9vw;
+    height: 2.5vw;
+}
+
+@media screen and (max-width: 800px){
+    .end-menu-button::part(native) {
+        width: 23vw;
+        height: 6.5vw;
+    }
 }

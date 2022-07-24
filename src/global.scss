@@ -62,11 +62,20 @@ html {
     --ion-default-font: YoutubeSansMedium !important;
 }
 
+app-menu-side ion-toolbar.main-toolbar {
+    --min-height: 4vw;
+}
+
 .padding-container {
-    padding: 0px 4em;
+    padding: 0px 6vw;
 }
 
 @media (max-width: 800px) {
+
+    app-menu-side ion-toolbar.main-toolbar {
+        --min-height: 10vw;
+    }
+
     .padding-container {
         padding: 0px 0em;
     }
@@ -103,10 +112,6 @@ $size-value in $screen-breakpoints {
     --width: 60em;
 }
 
-@media (min-width: 768px) {
-    .boder-radius-modal { 
-    }
-}
 
 .boder-radius-modal::part(content) {
     border-color: none !important;

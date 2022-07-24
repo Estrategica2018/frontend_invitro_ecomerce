@@ -18,10 +18,10 @@
                     <ion-col class="product-legend" [size]="largeScreen ? 4 : 12"
                         *ngFor="let product of products">
                         <img class="product-image shadow-box-2" [src]="product.image_url">
-                        <div class="product-title mt-1">{{product.name}}</div>
-                        <div class="mt-1 product-detail">{{product.attr1}}</div>
-                        <div class="mt-0 product-detail">{{product.attr2}}</div>
-                        <div class="mt-1 product-price">{{product.price}}</div>
+                        <div class="product-title mt-1 fs-1">{{product.name}}</div>
+                        <div class="mt-1 product-detail fs-0">{{product.attr1}}</div>
+                        <div class="mt-0 product-detail fs-0">{{product.attr2}}</div>
+                        <div class="mt-1 product-price fs-1">{{product.price}}</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

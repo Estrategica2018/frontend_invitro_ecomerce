@@ -117,10 +117,10 @@
         <ion-row>
           <ion-col class="new-product-legend" [size]="largeScreen ? 4 : 12" *ngFor="let product of newProducts">
             <img class="product-image shadow-box-2" [src]="product.image_url">
-            <div class="product-title mt-1">{{product.name}}</div>
-            <div class="mt-1 product-detail">{{product.attr1}}</div>
-            <div class="mt-0 product-detail">{{product.attr2}}</div>
-            <div class="mt-1 product-price">{{product.price}}</div>
+            <div class="product-title mt-1 fs-1">{{product.name}}</div>
+            <div class="mt-1 product-detail fs-0">{{product.attr1}}</div>
+            <div class="mt-0 product-detail fs-0">{{product.attr2}}</div>
+            <div class="mt-1 product-price fs-1">{{product.price}}</div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -135,8 +135,7 @@
         <ion-row class="colaboration-container">
           <ion-col class="colaborations-panel" *ngFor="let colaboration of colaborationFilterList; let i = index;"
             [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen, 'opacity-0': colaboration.noShow, 'd-none': !largeScreen && colaboration.noShow }"
-            [ngStyle]="{'height': !largeScreen && colaboration.noShow ? '0px' : ''}"
-             [size]="largeScreen ? 4 : 12">
+            [ngStyle]="{'height': !largeScreen && colaboration.noShow ? '0px' : ''}" [size]="largeScreen ? 4 : 12">
             <img class="colaboration-image" [src]="colaboration.url_image">
             <div class="colaborations-section shadow-box">
               <div class="panel-title mt-2 fs-2">{{colaboration.title}}</div>
