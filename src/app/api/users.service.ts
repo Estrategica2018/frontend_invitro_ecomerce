@@ -65,7 +65,7 @@ export class UsersService {
       })
     };
 
-    return this.http.post(`${SERVER_URL}/api/logout`,{},httpOptions)
+    return this.http.post(`${SERVER_URL}/api/auth/logout`,{},httpOptions)
    .pipe(
       timeout(60000),
       catchError((e: any) => {
