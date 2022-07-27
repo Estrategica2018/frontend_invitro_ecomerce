@@ -1,0 +1,105 @@
+.container-carousel-slide {
+  height: 19em;
+  padding-left: 0px;
+  padding-top: 1em;
+}
+
+$blue-color: #004782;
+$blue-light-color: #F5F6FF;
+
+
+.name {
+  color: #{$blue-color};
+}
+
+.description small {
+    color: black;
+    font-weight: 500;
+}
+
+.col-max {
+  overflow: auto;
+  height: 40em;
+}
+
+.thumbnail {
+  --size: 1;
+}
+
+.item-add .delete {
+  position: relative;
+  top: -186px;
+  left: 17px;
+}
+
+.item-add .delete.video {
+  position: relative;
+  top: -86px;
+  left: 17px;
+}
+
+
+.item-add .delete.paragraph {
+  position: relative;
+  top: -54px;
+  left: -3px;
+} 
+
+.border-line {
+  border-bottom: 1px solid #{$blue-color};
+}
+
+.grid-shopping-cart {
+  overflow: auto;
+  height: 35em;
+}
+
+@media (min-width: 768px) {
+ .grid-shopping-cart {
+   height: 31em;
+ }
+}
+
+.vertical-widget {
+  display: none;
+}
+
+.horizontal-widget {
+  display: flex;
+}
+
+@media (max-width: 592px) {
+ .vertical-widget {
+   display: block;
+ }
+ .horizontal-widget {
+   display: none;
+ }
+}
+
+.product-image {
+  width: 5em;
+  height: 5em;
+}
+
+.button-price {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgb(26, 69, 148);
+    border: 0px;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0px 16px;
+    color: white;
+    cursor: pointer;
+    -webkit-font-smoothing: subpixel-antialiased;
+} 
+
+.buttonAmount {
+  z-index: 2;
+  font-size: 1em;
+  --border-style: initial;
+}

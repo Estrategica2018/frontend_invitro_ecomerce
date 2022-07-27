@@ -172,7 +172,7 @@ export class LoginComponent implements OnInit {
           this.loading.dismiss();
           const token = data.data;
           this.usersService.setUser(Object.assign({ token: token }, data.user)).then(() => {
-            this.router.navigateByUrl('/schedule');
+            this.router.navigateByUrl('/Inicio');
             window.dispatchEvent(new CustomEvent('user:login'));
           });
         },
@@ -195,7 +195,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading.present({ message: 'Cargando...' });
-
+    
     this.usersService.findEmail(this.registerForm.value['email'])
       .then(response => {
 
@@ -487,8 +487,8 @@ export class LoginComponent implements OnInit {
   onSendSignConfirm(email) {
 
     //this.loading.present({message:'Cargando...'});
-
-    this.usersService.sendSignConfirm(email)
+    let origin = window.location.origin;
+    this.usersService.sendSignConfirm(origin, email)
       .then(data => {
 
         this.singupConfirmMsg = "";

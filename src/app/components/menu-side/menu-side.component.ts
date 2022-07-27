@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { UsersService } from '../../api/users.service';
 import { LoginComponent } from '../../components/login/login.component';
 
 @Component({
@@ -10,15 +11,18 @@ import { LoginComponent } from '../../components/login/login.component';
 })
 export class MenuSideComponent implements OnInit {
 
+  @Input() shoppingCartCount = 0;
+  @Input() loggedIn = false;
+
   largeScreen = window.innerWidth >= 1012;
   userDataSession = false;
-  shoppingCartCount = 0;
-  loggedIn = false;
-  segmentInit = 0; 2
+  segmentInit = 0;
   showBannerSideMenu = false;
+  profileRole:any;
 
   constructor(
     private router: Router,
+    private usersService: UsersService,
     private modalCtrl: ModalController) { }
 
   appPages = [
@@ -44,21 +48,33 @@ export class MenuSideComponent implements OnInit {
         this.segmentInit = indx;
       }
     });
+
+    this.profileRole = {};
+    this.usersService.getUser().then((userDataSession: any)=>{
+      this.userDataSession = userDataSession;    
+      
+      this.profileRole = {};
+      if(userDataSession && userDataSession.user_roles_fair) {
+        userDataSession.user_roles_fair.forEach((role)=>{
+            if(role.id == 1) { //"super_administrador"
+               this.profileRole.admin = true;
+            }
+         });
+      } 
+      
+    });
   }
 
 
   openShoppingCart() { }
 
-  /*presenterLogin() {
-    alert('show');
-    window.dispatchEvent(new CustomEvent('show:login-modal'));
-  }*/
-
   presenterLogin() {
     window.dispatchEvent(new CustomEvent('show:login-modal'));
   }
 
-  presentAccount() { }
+  presentAccount() { 
+    window.dispatchEvent(new CustomEvent('show:account'));
+  }
 
   goToUrl(url: string) {
     this.router.navigate([url]);

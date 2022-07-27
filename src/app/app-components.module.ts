@@ -6,6 +6,8 @@ import { MenuSideComponent } from './components/menu-side/menu-side.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart-component';
+import { AccountComponent } from './components/account/account.component';
 import { NetworkStatusComponent } from './components/network-status/network-status.component';
 
 
@@ -21,14 +23,18 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     CarouselComponent,
     FooterComponent,
     LoginComponent,
-    NetworkStatusComponent
+    NetworkStatusComponent,
+    ShoppingCartComponent,
+    AccountComponent
   ],
   exports: [
     MenuSideComponent,
     CarouselComponent,
     FooterComponent,
     LoginComponent,
-    NetworkStatusComponent
+    NetworkStatusComponent,
+    ShoppingCartComponent,
+    AccountComponent
   ]
 
 })

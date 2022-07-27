@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { MenuController, Platform, ToastController, ModalController } from '@ionic/angular';
 import { LoginComponent } from './components/login/login.component';
+import { UsersService } from './api/users.service';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart-component';
+import { ShoppingCartsService } from './api/shopping-carts.service';
+import { AccountComponent } from './components/account/account.component';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +22,20 @@ export class AppComponent {
   ];
 
   modal = null;
+  shoppingCartCount: 0;
+  errors = null;
+  loggedIn = false;
 
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private usersService: UsersService,
+    private shoppingCartsService: ShoppingCartsService,
+
   ) {
 
     this.listenForLoginEvents();
+    this.getShoppingCart();
+    this.checkLoginStatus();
   }
 
   listenForLoginEvents() {
@@ -35,6 +47,10 @@ export class AppComponent {
     window.addEventListener('show:login-modal', () => {
       this.presenterLoginModal('login', null, null);
     });
+    
+    window.addEventListener('show:account', () => {
+      this.presentAccount();
+    });
 
     window.addEventListener('show:recovery-modal', (data: any) => {
       if (data.detail.token) {
@@ -44,6 +60,23 @@ export class AppComponent {
       }
     });
   }
+
+  async presentAccount() {
+    
+    this.modal = await this.modalCtrl.create({
+      component: AccountComponent,
+      cssClass: 'boder-radius-modal',
+      componentProps: {
+        '_patern': this
+      }
+    });
+    await this.modal.present();
+    const { data } = await this.modal.onWillDismiss();
+
+    if(data) {
+    }
+  }   
+
 
   async presenterLoginModal(showMenu, errors, recoveryData) {
 
@@ -74,5 +107,36 @@ export class AppComponent {
       this.modal.canDismiss = true;
     }
   }
+
+  getShoppingCart() {
+    //this.loading.present({message:'Cargando...'});
+    this.usersService.getUser().then((userDataSession) => {
+      this.shoppingCartsService.list(userDataSession)
+        .then(response => {
+          this.shoppingCartCount = response.length;
+          //this.loading.dismiss();
+        }, errors => {
+          this.errors = errors;
+          //this.loading.dismiss();
+        })
+        .catch(error => {
+          this.errors = error;
+          console.log(error);
+          //this.loading.dismiss();
+        });
+    });
+  }
+
+
+  checkLoginStatus() {
+    return this.usersService.isLoggedIn().then(user => {
+      return this.updateLoggedInStatus(user);
+    });
+  }
+
+  updateLoggedInStatus(user: any) {
+    this.loggedIn = (user !== null);
+  }
+
 
 }

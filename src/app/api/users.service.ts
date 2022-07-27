@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${SERVER_URL}/api/auth/login`, {name:"David Camacho",email: email, password: password})
+    return this.http.post(`${SERVER_URL}/api/auth/login`, {email: email, password: password})
    .pipe(
       timeout(10000),
       catchError((e: any) => {
@@ -317,9 +317,9 @@ export class UsersService {
     });
   }
 
-  sendSignConfirm(email: string): Promise<any> {
+  sendSignConfirm(origin: string, email: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        this.http.get(`${SERVER_URL}/api/user/sendSignConfirm/notify/${email}`)
+      this.http.post(`${SERVER_URL}/api/confirm_email`,{"origin":origin,"email":email})
        .pipe(
           timeout(60000),
           catchError((e: any) => {

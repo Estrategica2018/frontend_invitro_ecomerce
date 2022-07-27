@@ -64,17 +64,14 @@ input {
   border-bottom: 1px solid;
 }
 
-@media screen and (max-width:800px) {
-  .password-recovery {
-    margin-top: 13vw !important;
-  }
-}
+
 
 .acceptTerms {
   position: absolute;
-  top: 1em;
-  left: 3em;
+  top: 1vw;
+  left: 3vw;
 }
+
 
 ion-checkbox {
   width: 2.6em;
@@ -181,4 +178,34 @@ ion-input {
 .delete-terms {
   left: 1.4em;
   position: absolute;
+}
+
+.register-btn {
+  width: 11vw;
+  margin-left: -2vw;
+}
+
+@media screen and (min-width:800px) and (max-width:1200px) {
+  .register-btn {
+    width: 23vw;
+    margin-left: -10vw;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .register-btn {
+    width: 33vw;
+    margin-left: -10vw;
+  }
+
+  .password-recovery {
+    margin-top: 13vw !important;
+  }
+
+  .acceptTerms{
+    top: 0vw;
+    left: 8vw;
+    font-size: 3.3vw !important;
+  }
+  
 }
