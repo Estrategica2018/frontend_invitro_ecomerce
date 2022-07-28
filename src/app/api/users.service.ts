@@ -30,12 +30,12 @@ export class UsersService {
         }
         else if(e.status == 404) {
           throw new Error(`El servicio no se enuentra disponible, por favor intente más tarde`);
-        } 
+        }
         else {
             throw new Error(`Consultando el servicio para iniciar sesión: ${e.status} - ${e.statusText}`);
         }
-        
-        
+
+
         return of(null);
       })
     )
@@ -161,7 +161,7 @@ export class UsersService {
 
   recoverPassword(data): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.post(`${SERVER_URL}/api/password/create`,data)
+      this.http.post(`${SERVER_URL}/api/forgotpassword/create`,data)
        .pipe(
           timeout(60000),
           catchError((e: any) => {
@@ -175,7 +175,7 @@ export class UsersService {
             else {
               if(e.status && e.statusText && e.statusText.indexOf('Gateway Timeout') >= 0) {
                 throw new Error(`No está conectado a internet`);
-              }  
+              }
               else if(e.status && e.statusText) {
                 throw new Error(`Consultando el servicio para recuperación de clave: ${e.status} - ${e.statusText}`);
               }
@@ -266,7 +266,7 @@ export class UsersService {
 
     });
   }
-  
+
   getPaymentUser(data,userDataSession) {
 
     const httpOptions = {
@@ -281,7 +281,7 @@ export class UsersService {
           catchError((e: any) => {
             console.log(e);
             if(e.status && e.statusText) {
-              throw new Error(`Consultando el servicio de pagos realizados: ${e.status} - ${e.statusText}`);    
+              throw new Error(`Consultando el servicio de pagos realizados: ${e.status} - ${e.statusText}`);
             }
             else {
               throw new Error(`Consultando el servicio de pagos realizados`);
@@ -292,10 +292,10 @@ export class UsersService {
            resolve(data);
         },error => {
             reject(error)
-        });   
+        });
     });
   }
-  
+
   findEmail(email: string): Promise<any> {
     return new Promise((resolve, reject) => {
         this.http.get(`${SERVER_URL}/api/user/find/${email}`)
@@ -337,7 +337,7 @@ export class UsersService {
 
     });
   }
-  
+
   singupValidate(email: string, code: string): Promise<any> {
     return new Promise((resolve, reject) => {
         this.http.get(`${SERVER_URL}/api/user/sendSignConfirm/validate/${email}/${code}`)
