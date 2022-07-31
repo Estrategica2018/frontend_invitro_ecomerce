@@ -36,14 +36,14 @@ export class RecoverPasswordPage implements OnInit {
       this.usersService.findPassword(token)
         .then(data => {
           this.loading.dismiss();
-          let email = data.data.email;
+          let email = data.email;
           data = { "emailToken": email, "token": token, "errors": null };
           window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
           this.goToUrl('Inicio');
         },
           error => {
             this.loading.dismiss();
-            let data = { "errors": "El link de recuperación de clave no existe o está vencido" };
+            let data = { "emailToken": error.email, "errors": error.message };
             window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
             this.goToUrl('Inicio');
           });

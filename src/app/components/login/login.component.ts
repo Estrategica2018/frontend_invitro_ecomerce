@@ -91,8 +91,9 @@ export class LoginComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
 
+    let emailToken = this.email_recovery || (this.recoveryData ? this.recoveryData.emailToken : '');
     this.recoveryForm = this.formBuilder.group({
-      email: [(this.email_recovery || ''), [Validators.required, Validators.email]]
+      email: [(emailToken), [Validators.required, Validators.email]]
     });
 
     this.singupConfirmForm = this.formBuilder.group({
@@ -112,6 +113,8 @@ export class LoginComponent implements OnInit {
     this.changePasswordForm = this.formBuilder.group({
       newPassrword: ['', [Validators.required, Validators.minLength(6)]],
       confirNewPassrword: ['', [Validators.required, Validators.minLength(6)]],
+    }, {
+      validator: MustMatch('newPassrword', 'confirNewPassrword')
     });
   }
 
@@ -170,9 +173,9 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.loading.dismiss();
-          const token = data.data;
-          this.usersService.setUser(Object.assign({ token: token }, data.user)).then(() => {
-            this.router.navigateByUrl('/Inicio');
+          const token = data.access_token;
+          let user = Object.assign({ user_role: data.data.user_role }, data.data.user);
+          this.usersService.setUser(Object.assign({ token: token }, user)).then(() => {
             window.dispatchEvent(new CustomEvent('user:login'));
           });
         },
@@ -195,10 +198,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading.present({ message: 'Cargando...' });
-    
+
     this.usersService.findEmail(this.registerForm.value['email'])
       .then(response => {
-
+        this.submitted = false;
         if (response.status === 201) {
           this.emailActivateError = true;
           this.loading.dismiss();
@@ -211,6 +214,7 @@ export class LoginComponent implements OnInit {
         }
       },
         error => {
+          this.submitted = false;
           this.loading.dismiss();
           this.errors = error;
         });
@@ -236,24 +240,21 @@ export class LoginComponent implements OnInit {
     this.usersService.recoverPassword(recoveryData)
       .then(
         data => {
-          if (data.success === 201) {
+          this.submitted = false;
+          if (data.overall_status === 'successfull') {
             this.loading.dismiss();
             this.success = data.message;
             this.presentToast(this.success, 'success');
           }
           else {
             this.loading.dismiss();
-            if (data.email) {
-              this.errors = 'Correo electrónico ya registrado';
-            }
-            else {
-              this.errors = 'Consultando el servicio para creación del usuario';
-            }
+            this.errors = 'Error ejecutando el servicio de recuperación de clave';
           }
         },
         error => {
           this.loading.dismiss();
           this.errors = error;
+          this.submitted = false;
         });
 
   }
@@ -277,6 +278,7 @@ export class LoginComponent implements OnInit {
     this.usersService.recoverPassword(recoveryData)
       .then(
         data => {
+          this.submitted = false;
           if (data.success === 201) {
             this.loading.dismiss();
             this.success = data.message;
@@ -295,6 +297,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.loading.dismiss();
           this.errors = error;
+          this.submitted = false;
         });
 
   }
@@ -306,19 +309,13 @@ export class LoginComponent implements OnInit {
         data => {
           const token = data.data;
           this.usersService.setUser(Object.assign(userData, { token: token })).then(() => {
-            //this.router.navigateByUrl('/schedule');
-            //window.dispatchEvent(new CustomEvent('user:signup'));
-            window.location.reload();
+            window.dispatchEvent(new CustomEvent('user:login'));
           });
         },
         error => {
           this.loading.dismiss();
           this.errors = error;
         });
-  }
-
-  onSendEmailPassword() {
-
   }
 
   onShowTerms() {
@@ -493,7 +490,7 @@ export class LoginComponent implements OnInit {
 
         this.singupConfirmMsg = "";
 
-        if (data.success === 201) {
+        if (data.overall_status === "successfull") {
           this.loading.dismiss();
           this.showMenu = 'singupConfirm';
           this.submitted = null;
@@ -531,12 +528,11 @@ export class LoginComponent implements OnInit {
           this.loading.dismiss();
           this.errors = data.message;
         }
-        else if (data.success === 201) {
+        else if (data.overall_status === "successfull") {
           //this.loading.dismiss();
           this.errors = null;
           this.success = 'Código validado exitósamente';
-
-          this.onSingup();
+          this.onSingup(code);
         }
         else {
           this.loading.dismiss();
@@ -550,7 +546,7 @@ export class LoginComponent implements OnInit {
         });
   }
 
-  onSingup() {
+  onSingup(code: number) {
     const signupData = {
       'user_name': this.registerForm.value['name'].replace(' ', '') + '_' + Date.now(),
       'name': this.registerForm.value['name'],
@@ -558,17 +554,18 @@ export class LoginComponent implements OnInit {
       'password': this.registerForm.value['password'],
       'email': this.registerForm.value['email'],
       'confirmPassword': this.registerForm.value['confirmPassword'],
-      'role_id': 4
+      'code': code,
+      'role': 2
     }
-    this.usersService.signup(signupData)
+    this.usersService.signup(signupData, code)
       .then(data => {
-        if (data.success === 201) {
+        if (data.overall_status === "successfull") {
           this.loading.dismiss();
-          this.onLogin(Object.assign({ password: this.registerForm.value['password'] }, data.data));
+          this.onLogin(Object.assign({ password: this.registerForm.value['password'] }, data.data.user));
         }
         else {
           this.loading.dismiss();
-          if (data.email) {
+          if (data.errors && data.errors.email) {
             this.errors = 'Correo electrónico ya registrado';
           }
           else {
@@ -601,13 +598,8 @@ export class LoginComponent implements OnInit {
   }
 
   onDigitInput(event) {
-
     let element = null;
-    if (element == null) {
-      return;
-    }
-
-
+    
     if (event.code !== 'Backspace') {
 
       if (this.digitSix.last.nativeElement !== event.srcElement) {

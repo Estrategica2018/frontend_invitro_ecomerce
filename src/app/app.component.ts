@@ -44,6 +44,10 @@ export class AppComponent {
       window.location.reload();
     });
 
+    window.addEventListener('user:logout', (user) => {
+      window.location.reload();
+    });
+
     window.addEventListener('show:login-modal', () => {
       this.presenterLoginModal('login', null, null);
     });
@@ -56,7 +60,7 @@ export class AppComponent {
       if (data.detail.token) {
         this.presenterLoginModal('recovery-token', data.detail.errors, data.detail);
       } else {
-        this.presenterLoginModal('recovery', data.detail.errors, null);
+        this.presenterLoginModal('recovery', data.detail.errors, data.detail);
       }
     });
   }

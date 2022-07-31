@@ -11,7 +11,7 @@ import { environment, SERVER_URL } from '../../environments/environment';
 })
 export class UsersService {
 
-  url= SERVER_URL;
+  url = SERVER_URL;
   HAS_LOGGED_IN = 'hasLoggedIn';
 
   constructor(
@@ -20,99 +20,91 @@ export class UsersService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${SERVER_URL}/api/auth/login`, {email: email, password: password})
-   .pipe(
-      timeout(10000),
-      catchError((e: any) => {
-        console.log(e);
-        if(e.status === 401) {
-           throw new Error(`Usuario o contraseña incorrectos`);
-        }
-        else if(e.status == 404) {
-          throw new Error(`El servicio no se enuentra disponible, por favor intente más tarde`);
+    return this.http.post(`${SERVER_URL}/api/auth/login`, { email: email, password: password })
+      .pipe(
+        timeout(60000),
+        catchError((e: any) => {
+          console.log(e);
+          if (e.status === 401) {
+            throw new Error(`Usuario o contraseña incorrectos`);
+          }
+          else if (e.status == 404) {
+            throw new Error(`El servicio no se enuentra disponible, por favor intente más tarde`);
+          }
+          else {
+            throw new Error(`Consultando el servicio para iniciar sesión: ${e.status} - ${e.statusText}`);
+          }
+
+
+          return of(null);
+        })
+      )
+    /*.pipe(
+       timeout(5000),
+       catchError((e: any) => {
+        if(e.status == 422) {
+          throw new Error(`Usuario o contraseña incorrectos`);
         }
         else {
-            throw new Error(`Consultando el servicio para iniciar sesión: ${e.status} - ${e.statusText}`);
+            if(e.status){
+              throw new Error(`Consultando el servicio para el inicio de sesión: ${e.status} - ${e.statusText}`);
+             }
+             else if(e.message){
+              throw new Error(`Consultando el servicio para el inicio de sesión: ${e.name} - ${e.message}`);
+             }
         }
-
-
-        return of(null);
-      })
-    )
-   /*.pipe(
-      timeout(5000),
-      catchError((e: any) => {
-       if(e.status == 422) {
-         throw new Error(`Usuario o contraseña incorrectos`);
-       }
-       else {
-           if(e.status){
-             throw new Error(`Consultando el servicio para el inicio de sesión: ${e.status} - ${e.statusText}`);
-            }
-            else if(e.message){
-             throw new Error(`Consultando el servicio para el inicio de sesión: ${e.name} - ${e.message}`);
-            }
-       }
-      })
-    )*/
+       })
+     )*/
   }
 
   logout(userDataSession): Observable<any> {
 
     const httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization':  'Bearer ' + userDataSession.token
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + userDataSession.token
       })
     };
 
-    return this.http.post(`${SERVER_URL}/api/auth/logout`,{},httpOptions)
-   .pipe(
-      timeout(60000),
-      catchError((e: any) => {
-        if(e.status !== 401) {
-           if(e.status){
-             throw new Error(`Consultando el servicio para cerrar sesión: ${e.status} - ${e.statusText}`);
-           }
-           if(e.message){
-             throw new Error(`Consultando el servicio para cerrar sesión: ${e.name} - ${e.message}`);
-           }
-        }
-        return of(null);
-      })
-    )
+    return this.http.post(`${SERVER_URL}/api/auth/logout`, {}, httpOptions)
+      .pipe(
+        timeout(60000),
+        catchError((e: any) => {
+          if (e.status !== 401) {
+            if (e.status) {
+              throw new Error(`Consultando el servicio para cerrar sesión: ${e.status} - ${e.statusText}`);
+            }
+            if (e.message) {
+              throw new Error(`Consultando el servicio para cerrar sesión: ${e.name} - ${e.message}`);
+            }
+          }
+          return of(null);
+        })
+      )
   }
 
-  signup(userData: any): Promise<any> {
+  signup(userData: any, code: number): Promise<any> {
     return new Promise((resolve, reject) => {
-        userData.origin = window.location.origin;
-        this.http.post(`${SERVER_URL}/api/user/create`,userData)
-       .pipe(
-          timeout(2000),
+      userData.origin = window.location.origin;
+      this.http.post(`${SERVER_URL}/api/auth/register`, userData)
+        .pipe(
+          timeout(60000),
           catchError((e: any) => {
-            if(e.status == 401) {
-               throw new Error(`Usuario ya existe`);
+            if (e.status == 401) {
+              throw new Error(`Usuario ya existe`);
             }
             else {
-               if(e.status && e.statusText) {
-                  throw new Error(`Consultando el servicio para creación del usuario: ${e.status} - ${e.statusText}`);
-               }
-               else {
-                   throw new Error(`Consultando el servicio para creación del usuario`);
-               }
+              if (e.status && e.statusText) {
+                throw new Error(`Consultando el servicio para creación del usuario: ${e.status} - ${e.statusText}`);
+              }
+              else {
+                throw new Error(`Consultando el servicio para creación del usuario`);
+              }
             }
           })
         )
-        .subscribe((data : any )=> {
-            if(data.success === 201) {
-              resolve(data);
-            }
-            else if(data.data && data.data.email) {
-                reject(`Correo electrónico ya registrado`);
-            }
-            else {
-                reject(`Consultando el servicio para creación del usuario`);
-            }
-        },error => reject(error));
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => reject(error));
 
     });
   }
@@ -124,7 +116,7 @@ export class UsersService {
   }
 
   setUser(userDataSession: any): Promise<boolean> {
-    if(userDataSession) return this.storage.set(this.HAS_LOGGED_IN,userDataSession);
+    if (userDataSession) return this.storage.set(this.HAS_LOGGED_IN, userDataSession);
     else return this.storage.remove(this.HAS_LOGGED_IN);
   }
 
@@ -136,47 +128,47 @@ export class UsersService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization':  'Bearer ' + userDataSession.token
+        'Authorization': 'Bearer ' + userDataSession.token
       })
     };
 
-    return this.http.post(`${SERVER_URL}/api/user/update`,userData, httpOptions)
-   .pipe(
-      timeout(3000),
-      catchError((e: any) => {
-        if(e.status == 401) {
-           throw new Error(`Usuario ya existe`);
-        }
-        else {
-           if(e.status && e.statusText) {
+    return this.http.post(`${SERVER_URL}/api/user/update`, userData, httpOptions)
+      .pipe(
+        timeout(60000),
+        catchError((e: any) => {
+          if (e.status == 401) {
+            throw new Error(`Usuario ya existe`);
+          }
+          else {
+            if (e.status && e.statusText) {
               throw new Error(`Consultando el servicio para modificación del usuario: ${e.status} - ${e.statusText}`);
-           }
-           else {
-               throw new Error(`Consultando el servicio para modificación del usuario`);
-           }
-        }
-      })
-    )
+            }
+            else {
+              throw new Error(`Consultando el servicio para modificación del usuario`);
+            }
+          }
+        })
+      )
   }
 
   recoverPassword(data): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.post(`${SERVER_URL}/api/forgotpassword/create`,data)
-       .pipe(
+      this.http.post(`${SERVER_URL}/api/forgotpassword/create`, data)
+        .pipe(
           timeout(60000),
           catchError((e: any) => {
-            if(e.status == 422) {
+            if (e.status == 422) {
               const message = e.error ? JSON.stringify(e.error) : `${e.status} - ${e.statusText}`;
               throw new Error(`Consultando el servicio para recuperación de clave: ${message}`);
             }
-            else if(e.status == 404) {
+            else if (e.status == 404) {
               throw new Error(`Usuario o Email no encontrado`);
             }
             else {
-              if(e.status && e.statusText && e.statusText.indexOf('Gateway Timeout') >= 0) {
+              if (e.status && e.statusText && e.statusText.indexOf('Gateway Timeout') >= 0) {
                 throw new Error(`No está conectado a internet`);
               }
-              else if(e.status && e.statusText) {
+              else if (e.status && e.statusText) {
                 throw new Error(`Consultando el servicio para recuperación de clave: ${e.status} - ${e.statusText}`);
               }
               else {
@@ -185,33 +177,28 @@ export class UsersService {
             }
           })
         )
-        .subscribe((data : any )=> {
-          if(data.success === 201) {
-            resolve(data);
-          }
-          else {
-            reject(`Consultando el servicio para recuperación de clave`);
-          }
-        },error => reject(error));
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => reject(error));
 
     });
   }
 
   findPassword(token): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${SERVER_URL}/api/password/find/${token}`)
-       .pipe(
+      this.http.post(`${SERVER_URL}/api/forgotpassword/find`, { token: token })
+        .pipe(
           timeout(60000),
           catchError((e: any) => {
-            if(e.status == 422) {
+            if (e.status == 422) {
               const message = e.error ? JSON.stringify(e.error) : `${e.status} - ${e.statusText}`;
               throw new Error(`Consultando el servicio para recuperación de clave: ${message}`);
             }
-            else if(e.status == 404 && e.error && e.error.message) {
+            else if (e.status == 404 && e.error && e.error.message) {
               throw new Error(`${e.error.message}`);
             }
             else {
-              if(e.status && e.statusText) {
+              if (e.status && e.statusText) {
                 throw new Error(`Consultando el servicio para recuperación de clave: ${e.status} - ${e.statusText}`);
               }
               else {
@@ -220,33 +207,33 @@ export class UsersService {
             }
           })
         )
-        .subscribe((data : any )=> {
-          if(data.status === 'successfull') {
-            resolve(data);
+        .subscribe((data: any) => {
+          if (data.overall_status === 'successfull') {
+            resolve(data.data.passwordReset);
           }
           else {
-            reject(`Consultando el servicio para recuperación de clave`);
+            reject({ "email": data.data.email, "msg": `Consultando el servicio para recuperación de clave` });
           }
-        },error => reject(error));
+        }, error => reject(error));
 
     });
   }
 
   resetPassword(data): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.post(`${SERVER_URL}/api/password/reset`,data)
+      this.http.post(`${SERVER_URL}/api/password/reset`, data)
         .pipe(
           timeout(60000),
           catchError((e: any) => {
-            if(e.status == 422) {
+            if (e.status == 422) {
               const message = e.error ? JSON.stringify(e.error) : `${e.status} - ${e.statusText}`;
               throw new Error(`Consultando el servicio para recuperación de clave: ${message}`);
             }
-            else if(e.status == 404 && e.error && e.error.message) {
+            else if (e.status == 404 && e.error && e.error.message) {
               throw new Error(`${e.error.message}`);
             }
             else {
-              if(e.status && e.statusText) {
+              if (e.status && e.statusText) {
                 throw new Error(`Consultando el servicio para recuperación de clave: ${e.status} - ${e.statusText}`);
               }
               else {
@@ -255,32 +242,32 @@ export class UsersService {
             }
           })
         )
-        .subscribe((data : any )=> {
-          if(data.status === 'successfull') {
+        .subscribe((data: any) => {
+          if (data.status === 'successfull') {
             resolve(data);
           }
           else {
             reject(`Consultando el servicio para recuperación de clave`);
           }
-        },error => reject(error));
+        }, error => reject(error));
 
     });
   }
 
-  getPaymentUser(data,userDataSession) {
+  getPaymentUser(data, userDataSession) {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization':  'Bearer ' + userDataSession.token
+        'Authorization': 'Bearer ' + userDataSession.token
       })
     };
     return new Promise((resolve, reject) => {
-        this.http.post(`${SERVER_URL}/api/payment/user/fair`,data,httpOptions)
+      this.http.post(`${SERVER_URL}/api/payment/user/fair`, data, httpOptions)
         .pipe(
           timeout(60000),
           catchError((e: any) => {
             console.log(e);
-            if(e.status && e.statusText) {
+            if (e.status && e.statusText) {
               throw new Error(`Consultando el servicio de pagos realizados: ${e.status} - ${e.statusText}`);
             }
             else {
@@ -288,76 +275,77 @@ export class UsersService {
             }
           })
         )
-        .subscribe((data : any )=> {
-           resolve(data);
-        },error => {
-            reject(error)
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => {
+          reject(error)
         });
     });
   }
 
   findEmail(email: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        this.http.get(`${SERVER_URL}/api/user/find/${email}`)
-       .pipe(
+      this.http.get(`${SERVER_URL}/api/user/find/${email}`)
+        .pipe(
           timeout(60000),
           catchError((e: any) => {
-               if(e.status && e.statusText) {
-                  throw new Error(`Consultando el servicio para validación del usuario: ${e.status} - ${e.statusText}`);
-               }
-               else {
-                   throw new Error(`Consultando el servicio para validación del usuario`);
-               }
+            if (e.status && e.statusText) {
+              throw new Error(`Consultando el servicio para validación del usuario: ${e.status} - ${e.statusText}`);
+            }
+            else {
+              throw new Error(`Consultando el servicio para validación del usuario`);
+            }
           })
         )
-        .subscribe((data : any )=> {
-            resolve(data);
-        },error => reject(error));
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => reject(error));
 
     });
   }
 
   sendSignConfirm(origin: string, email: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.post(`${SERVER_URL}/api/confirm_email`,{"origin":origin,"email":email})
-       .pipe(
+      this.http.post(`${SERVER_URL}/api/confirm_email`, { "origin": origin, "email": email })
+        .pipe(
           timeout(60000),
           catchError((e: any) => {
-               if(e.status && e.statusText) {
-                  throw new Error(`Consultando el servicio para validación del usuario: ${e.status} - ${e.statusText}`);
-               }
-               else {
-                   throw new Error(`Consultando el servicio para validación del usuario`);
-               }
+            if (e.status && e.statusText) {
+              throw new Error(`Consultando el servicio para validación del usuario: ${e.status} - ${e.statusText}`);
+            }
+            else {
+              throw new Error(`Consultando el servicio para validación del usuario`);
+            }
           })
         )
-        .subscribe((data : any )=> {
-            resolve(data);
-        },error => reject(error));
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => reject(error));
 
     });
   }
 
   singupValidate(email: string, code: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        this.http.get(`${SERVER_URL}/api/user/sendSignConfirm/validate/${email}/${code}`)
-       .pipe(
+      const data = { 'email': email, 'code': code };
+      this.http.post(`${SERVER_URL}/api/validate_confirm_email/`, data)
+        .pipe(
           timeout(60000),
           catchError((e: any) => {
-               if(e.error.message) {
-                   throw new Error(`Consultando el servicio para validación del usuario: ${e.error.message}`);
-               }
-               if(e.status && e.statusText) {
-                  throw new Error(`Consultando el servicio para validación del usuario: ${e.status} - ${e.statusText}`);
-               }
-               else {
-                   throw new Error(`Consultando el servicio para validación del usuario`);
-               }
+            if (e.error.message) {
+              throw new Error(`Consultando el servicio para validación del usuario: ${e.error.message}`);
+            }
+            if (e.status && e.statusText) {
+              throw new Error(`Consultando el servicio para validación del usuario: ${e.status} - ${e.statusText}`);
+            }
+            else {
+              throw new Error(`Consultando el servicio para validación del usuario`);
+            }
           })
         )
-        .subscribe((data : any )=> {
-            resolve(data);
-        },error => reject(error));
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => reject(error));
 
     });
   }

@@ -172,14 +172,15 @@
                 <ion-label position="stacked" class="fs-0 acceptTerms ml-1">
                   Acepto términos y condiciones </ion-label>
 
-                  <ion-button class="button-href-no-border" (click)="onShowTerms()" shape="round" size="small"
-                    fill="outline">
-                    Ver términos y condiciones</ion-button>
-                
+                <ion-button class="button-href-no-border" (click)="onShowTerms()" shape="round" size="small"
+                  fill="outline">
+                  Ver términos y condiciones</ion-button>
+
 
               </ion-col>
               <ion-col size="4">
-                <ion-button shape="round" expand="full" class="button-green register-btn" type="submit">Registrar usuario
+                <ion-button shape="round" expand="full" class="button-green register-btn" type="submit">Registrar
+                  usuario
                 </ion-button>
               </ion-col>
             </ion-row>
@@ -260,6 +261,13 @@
                 </ion-button>
               </ion-col>
             </ion-row>
+            <ion-item [hidden]="!errors" class="not-found" lines="none">
+              <app-network-status></app-network-status>
+              <div class="alert alert-danger alert-dismissible">
+                <a href="javascript:void(0)" class="close" aria-label="close" (click)="errors=null" title="close">×</a>
+                <strong></strong> {{errors}}
+              </div>
+            </ion-item>
           </ion-grid>
         </ion-list>
       </form>
@@ -320,53 +328,57 @@
   <div *ngIf="showMenu == 'recovery-token'">
     <h2 class="ion-text-center title-modal mt-3 password-recovery">Recuperar contraseña </h2>
     <div class="padding-container scroll-90 min-height">
-      
-        <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()">
-          <ion-list-header style="margin-top: -1em;">
-            Realiza el cambio de clave para el correo <strong> {{recoveryData.emailToken.substr(0,3)}}***@{{recoveryData.emailToken.split('@')[1]}} </strong>
-          </ion-list-header>
-          <ion-list style=" margin-top: -16px;">
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  <ion-label position="stacked" class="fs-0">
-                    Nueva Contraseña <span class="required"> (*) </span>
-                  </ion-label>
-                  <input type="text" formControlName="newPassrword" class="fs-0 mt-1 form-control"
-                    [ngClass]="{ 'is-invalid': submitted && g.newPassrword.errors }" />
-                  <div *ngIf="submitted && g.newPassrword.errors" class="invalid-feedback">
-                    <div *ngIf="g.newPassrword.errors.required">Campo requerido</div>
-                  </div>
-                </ion-col>
-                <ion-col>
-                  <ion-label position="stacked" class="fs-0">
-                    Confirmar Nueva Contraseña <span class="required"> (*) </span>
-                  </ion-label>
-                  <input type="text" formControlName="confirNewPassrword" class="fs-0 mt-1 form-control"
-                    [ngClass]="{ 'is-invalid': submitted && g.confirNewPassrword.errors }" />
-                  <div *ngIf="submitted && g.confirNewPassrword.errors" class="invalid-feedback">
-                    <div *ngIf="g.confirNewPassrword.errors.required">Campo requerido</div>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-item [hidden]="!errors" class="not-found" lines="none">
-                <app-network-status></app-network-status>
-                <div class="alert alert-danger alert-dismissible">
-                  <a href="javascript:void(0)" class="close" aria-label="close" (click)="errors=null" title="close">×</a>
-                  <strong></strong> {{errors}}
-                </div>
-              </ion-item>
-              <ion-row>
-                <ion-col size="4">
-                  <ion-button shape="round" expand="full" class="button-green" type="submit">Cambiar contraseña
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-list>
-        </form>
 
-        
+      <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()">
+        <ion-list-header>
+          <span class="h-100 mt-1">Realiza el cambio de clave para el correo  &nbsp;<strong>
+            {{recoveryData.emailToken.substr(0,3)}}***@{{recoveryData.emailToken.split('@')[1]}} </strong>
+          </span>
+        </ion-list-header>
+        <ion-list style=" margin-top: -16px;">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label position="stacked" class="fs-0">
+                  Nueva Contraseña <span class="required"> (*) </span>
+                </ion-label>
+                <input type="text" formControlName="newPassrword" class="fs-0 mt-1 form-control"
+                  [ngClass]="{ 'is-invalid': submitted && g.newPassrword.errors }" />
+                <div *ngIf="submitted && p.newPassrword.errors" class="invalid-feedback">
+                  <div *ngIf="p.newPassrword.errors.required">Campo requerido</div>
+                  <div *ngIf="p.newPassrword.errors.mustMatch">Contraseñas no coinciden</div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label position="stacked" class="fs-0">
+                  Confirmar Nueva Contraseña <span class="required"> (*) </span>
+                </ion-label>
+                <input type="text" formControlName="confirNewPassrword" class="fs-0 mt-1 form-control"
+                  [ngClass]="{ 'is-invalid': submitted && g.confirNewPassrword.errors }" />
+                <div *ngIf="submitted && p.confirNewPassrword.errors" class="invalid-feedback">
+                  <div *ngIf="p.confirNewPassrword.errors.required">Campo requerido</div>
+                  <div *ngIf="p.confirNewPassrword.errors.mustMatch">Contraseñas no coinciden</div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-item [hidden]="!errors" class="not-found" lines="none">
+              <app-network-status></app-network-status>
+              <div class="alert alert-danger alert-dismissible">
+                <a href="javascript:void(0)" class="close" aria-label="close" (click)="errors=null" title="close">×</a>
+                <strong></strong> {{errors}}
+              </div>
+            </ion-item>
+            <ion-row class="p-2">
+                <ion-button shape="round" expand="full" class="button-green m-auto" type="submit">Cambiar contraseña
+                </ion-button>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
+      </form>
+
+
 
     </div>
   </div>
