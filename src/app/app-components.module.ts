@@ -25,7 +25,7 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     LoginComponent,
     NetworkStatusComponent,
     ShoppingCartComponent,
-    AccountComponent
+    AccountComponent,
   ],
   exports: [
     MenuSideComponent,
@@ -34,7 +34,7 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     LoginComponent,
     NetworkStatusComponent,
     ShoppingCartComponent,
-    AccountComponent
+    AccountComponent,
   ]
 
 })

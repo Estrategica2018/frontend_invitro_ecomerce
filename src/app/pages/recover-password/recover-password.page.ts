@@ -29,30 +29,35 @@ export class RecoverPasswordPage implements OnInit {
   ngOnInit() {
 
     let token = this.route.snapshot.paramMap.get('token');
-
     this.loading.present({ message: 'Cargando...' });
 
+    this.goToUrl('Inicio');
+    
     if (token) {
       this.usersService.findPassword(token)
         .then(data => {
           this.loading.dismiss();
           let email = data.email;
-          data = { "emailToken": email, "token": token, "errors": null };
-          window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
+          data = { "emailRecovery": email, "token": token, "errors": null };
+          window.dispatchEvent(new CustomEvent('show:recovery-token-modal', { detail: data }));
           this.goToUrl('Inicio');
         },
           error => {
             this.loading.dismiss();
-            let data = { "emailToken": error.email, "errors": error.message };
-            window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
-            this.goToUrl('Inicio');
+            this.usersService.getUser().then((userDataSession: any) => {
+              const email = userDataSession ? userDataSession.email : null;
+              let data = { "emailRecovery": email, "errors": error.message };
+              window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
+            });
           });
     }
     else {
       this.loading.dismiss();
-      let data = { "errors": "El link de recuperación de clave no existe o está vencido" };
-      window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
-      this.goToUrl('Inicio');
+      this.usersService.getUser().then((userDataSession: any) => {
+        const email = userDataSession ? userDataSession.email : null;
+        let data = { "emailRecovery": email, "errors": "El link de recuperación de clave no existe o está vencido" };
+        window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
+      });
     }
   }
 

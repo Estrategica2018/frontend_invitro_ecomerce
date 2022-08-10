@@ -54,37 +54,43 @@ export class ProductsService {
         "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1657475699/e-commerce/productos/Sin_t%C3%ADtulo_cyeyli.png",
         "attr1": "HOUSAM0000 9123",
         "attr2": "DOB 12/08/2010",
-        "price": "$xxxxxxx",
+        "price": "$xxxxxxx", "category": {"id":1,"name":"Catálogo de semen"},
+        "attributes": "Filtro raza 1|Filtro raza 2|otro filtro"
       }, {
         "name": "Toro 2",
         "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1657475699/e-commerce/productos/Sin_t%C3%ADtulo_cyeyli.png",
         "attr1": "HOUSAM0000 9123",
         "attr2": "DOB 12/08/2010",
-        "price": "$xxxxxxx",
+        "price": "$xxxxxxx","category": {"id":1,"name":"Catálogo de semen"},
+        "attributes": "Filtro raza 4|Filtro raza 2|otro filtro"
       }, {
         "name": "Toro 3",
         "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1657475699/e-commerce/productos/Sin_t%C3%ADtulo_cyeyli.png",
         "attr1": "HOUSAM0000 9123",
         "attr2": "DOB 12/08/2010",
-        "price": "$xxxxxxx",
+        "price": "$xxxxxxx","category": {"id":1,"name":"Catálogo de semen"},
+        "attributes": "Filtro raza 1|Propósito carne|otro filtro"
       }, {
         "name": "Toro 4",
         "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1657475699/e-commerce/productos/Sin_t%C3%ADtulo_cyeyli.png",
         "attr1": "HOUSAM0000 9123",
         "attr2": "DOB 12/08/2010",
-        "price": "$xxxxxxx",
+        "price": "$xxxxxxx","category": {"id":2,"name":"Donadoras"},
+        "attributes": "Propósito carne|Propósito leche|otro filtro"
       }, {
         "name": "Toro 5",
         "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1657475699/e-commerce/productos/Sin_t%C3%ADtulo_cyeyli.png",
         "attr1": "HOUSAM0000 9123",
         "attr2": "DOB 12/08/2010",
-        "price": "$xxxxxxx",
+        "price": "$xxxxxxx","category": {"id":2,"name":"Donadoras"},
+        "attributes": "Filtro raza 4|Filtro raza 2|otro filtro"
       }, {
         "name": "Toro 6",
         "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1657475699/e-commerce/productos/Sin_t%C3%ADtulo_cyeyli.png",
         "attr1": "HOUSAM0000 9123",
         "attr2": "DOB 12/08/2010",
-        "price": "$xxxxxxx",
+        "price": "$xxxxxxx","category": {"id":2,"name":"Donadoras"},
+        "attributes": "Filtro raza 1|Filtro raza 2|otro filtro"
       }]
   }
 

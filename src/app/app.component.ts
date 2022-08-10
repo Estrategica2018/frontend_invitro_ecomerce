@@ -49,29 +49,31 @@ export class AppComponent {
     });
 
     window.addEventListener('show:login-modal', () => {
-      this.presenterLoginModal('login', null, null);
+      this.presenterLoginModal('login', null, null, null);
     });
     
-    window.addEventListener('show:account', () => {
-      this.presentAccount();
+    window.addEventListener('show:account', (userDataSession) => {
+      this.presentAccount(userDataSession);
     });
 
     window.addEventListener('show:recovery-modal', (data: any) => {
-      if (data.detail.token) {
-        this.presenterLoginModal('recovery-token', data.detail.errors, data.detail);
-      } else {
-        this.presenterLoginModal('recovery', data.detail.errors, data.detail);
-      }
+        this.presenterLoginModal('recovery', data.detail.errors, data.detail.emailRecovery, null);
     });
+
+    window.addEventListener('show:recovery-token-modal', (data: any) => {
+      this.presenterLoginModal('recovery-token', null, data.detail.emailRecovery, data.detail.token);
+    });
+
   }
 
-  async presentAccount() {
+  async presentAccount(userDataSession:any) {
     
     this.modal = await this.modalCtrl.create({
-      component: AccountComponent,
+      component: LoginComponent,
       cssClass: 'boder-radius-modal',
       componentProps: {
-        '_patern': this
+        showMenu: 'account-profile',
+        'emailRecovery': userDataSession.email
       }
     });
     await this.modal.present();
@@ -82,7 +84,7 @@ export class AppComponent {
   }   
 
 
-  async presenterLoginModal(showMenu, errors, recoveryData) {
+  async presenterLoginModal(showMenu, errors, emailRecovery, tokenRecovery) {
 
     if (this.modal) { this.modal.dismiss(); }
 
@@ -93,7 +95,8 @@ export class AppComponent {
         '_parent': this,
         'showMenu': showMenu,
         'errors': errors,
-        'recoveryData': recoveryData
+        'emailRecovery': emailRecovery,
+        'tokenRecovery': tokenRecovery
       }
     });
 
@@ -113,7 +116,7 @@ export class AppComponent {
   }
 
   getShoppingCart() {
-    //this.loading.present({message:'Cargando...'});
+    
     this.usersService.getUser().then((userDataSession) => {
       this.shoppingCartsService.list(userDataSession)
         .then(response => {

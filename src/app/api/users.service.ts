@@ -124,7 +124,7 @@ export class UsersService {
     return this.storage.get(this.HAS_LOGGED_IN);
   }
 
-  updateUser(userDataSession: any, userData: any): Observable<any> {
+  updateUser(userDataSession: any, userData: any): Promise<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -132,26 +132,39 @@ export class UsersService {
       })
     };
 
-    return this.http.post(`${SERVER_URL}/api/user/update`, userData, httpOptions)
-      .pipe(
-        timeout(60000),
-        catchError((e: any) => {
-          if (e.status == 401) {
-            throw new Error(`Usuario ya existe`);
-          }
-          else {
-            if (e.status && e.statusText) {
-              throw new Error(`Consultando el servicio para modificación del usuario: ${e.status} - ${e.statusText}`);
+    return new Promise((resolve, reject) => {
+      this.http.post(`${SERVER_URL}/api/user/update`, userData, httpOptions)
+        .pipe(
+          timeout(60000),
+          catchError((e: any) => {
+            if (e.status == 422) {
+              const message = e.error ? JSON.stringify(e.error) : `${e.status} - ${e.statusText}`;
+              throw new Error(`Consultando el servicio para modificar usuario: ${message}`);
+            }
+            else if (e.status == 404) {
+              throw new Error(`Usuario o Email no encontrado`);
             }
             else {
-              throw new Error(`Consultando el servicio para modificación del usuario`);
+              if (e.status && e.statusText && e.statusText.indexOf('Gateway Timeout') >= 0) {
+                throw new Error(`No está conectado a internet`);
+              }
+              else if (e.status && e.statusText) {
+                throw new Error(`Consultando el servicio para modificar usuario: ${e.status} - ${e.statusText}`);
+              }
+              else {
+                throw new Error(`Consultando el servicio para modificar usuario`);
+              }
             }
-          }
-        })
-      )
+          })
+        )
+        .subscribe((data: any) => {
+          resolve(data);
+        }, error => reject(error));
+
+    });
   }
 
-  recoverPassword(data): Promise<any> {
+  recoveryPassword(data): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post(`${SERVER_URL}/api/forgotpassword/create`, data)
         .pipe(
@@ -221,7 +234,7 @@ export class UsersService {
 
   resetPassword(data): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.post(`${SERVER_URL}/api/password/reset`, data)
+      this.http.post(`${SERVER_URL}/api/forgotpassword/reset`, data)
         .pipe(
           timeout(60000),
           catchError((e: any) => {
@@ -243,7 +256,7 @@ export class UsersService {
           })
         )
         .subscribe((data: any) => {
-          if (data.status === 'successfull') {
+          if (data.overall_status === 'successfull') {
             resolve(data);
           }
           else {

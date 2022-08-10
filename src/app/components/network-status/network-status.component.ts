@@ -10,6 +10,7 @@ import { debounce, debounceTime } from 'rxjs/operators';
 export class NetworkStatusComponent implements OnInit {
   
   netStatusError: any;
+  errors: any;
 
   constructor() { }
 

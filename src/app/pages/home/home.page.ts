@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, createNgModuleRef, HostListener, OnInit } from '@angular/core';
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation, Swiper } from 'swiper';
 import { Animation, AnimationController } from '@ionic/angular';
 import { ProductsService } from '../../api/products.service';
@@ -20,6 +20,11 @@ export class HomePage implements OnInit {
   sectionColaboration = 1;
   colaborationList = [];
   colaborationFilterList = [];
+  tabMenuSelected: number = 1;
+  categorySales = [];
+  categorySaleSelected = 1;
+  productList = [];
+  productListFiltered = [];
 
   constructor(private animationCtrl: AnimationController,
     private productsApi: ProductsService) {
@@ -27,6 +32,8 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    
+    this.productListInitialize();
 
     this.swiperList = [
       {
@@ -141,6 +148,46 @@ export class HomePage implements OnInit {
       this.colaborationFilterList[indx] = colaboration;
       this.colaborationFilterList[indx].noShow = false;
     });
+
+  }
+
+  productListInitialize() {
+    this.productList = this.productsApi.mockNewProducts();
+    let mbControl = false;
+    this.categorySales = [];
+
+    for(let product of this.productList) {
+      mbControl = false;
+      for(let category of this.categorySales)  {
+        if(category.id == product.category.id) {
+          mbControl = true;
+        } 
+      }
+      if(!mbControl) {
+        this.categorySales.push(product.category);
+      }
+    }
+
+    this.onChangeCategorySale();
+  }
+
+  onChangeCategorySale(){
+
+    this.animation = this.animationCtrl.create()
+    .addElement(document.querySelector('.new-product-sales'))
+    .duration(1000)
+    .fromTo('opacity', '0.3', '1');
+
+
+    this.categorySales.forEach((category:any)=>{
+      category.active =  category.id == this.categorySaleSelected;
+    });
+
+    this.productListFiltered = this.productList.filter((product)=>{
+       return product.category && product.category.id == this.categorySaleSelected;
+    });
+
+    this.animation.play();
 
   }
 

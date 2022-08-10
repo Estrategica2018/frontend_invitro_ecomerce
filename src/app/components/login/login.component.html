@@ -1,13 +1,14 @@
-<div class="logo-float">
+<div class="logo-float" [hidden]="showMenu == 'account-profile'">
   <ion-icon class="icon" name="person-sharp" slot="icon-only"></ion-icon>
 </div>
 
 <div class="card w-100">
 
-  <div (click)="showMenu === 'terms' && !admin ?  showMenu = 'singup' : closeModal()" class="close-modal">
+  <div (click)="showMenu === 'change-password' ?  onChangeMenu('account-profile') : closeModal()" class="close-modal">
     <ion-icon name="close-outline" slot="icon-only"></ion-icon>
   </div>
-
+  
+  
   <div *ngIf="showMenu == 'login'">
 
     <h2 class="ion-text-center title-modal">Inicio de sesión </h2>
@@ -54,7 +55,7 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-button class="button-href-no-border " (click)="showMenu = 'recovery'; submitted = false;"
+              <ion-button class="button-href-no-border " (click)="onChangeMenu('recovery')"
                 shape="round" size="small" fill="outline">Recuperar contraseña</ion-button>
             </ion-row>
             <ion-item [hidden]="!errors" class="not-found" lines="none">
@@ -69,6 +70,7 @@
       </form>
     </div>
   </div>
+
   <div *ngIf="showMenu == 'singup'">
     <div>
       <ion-buttons slot="primary">
@@ -189,6 +191,7 @@
       </form>
     </div>
   </div>
+
   <div *ngIf="showMenu == 'singupConfirm'">
     <div (click)="onChangeMenu('singup')">
       <div ion-button class="back-button cursor-pointer">
@@ -273,6 +276,7 @@
       </form>
     </div>
   </div>
+
   <div *ngIf="showMenu == 'recovery'">
     <div (click)="onChangeMenu('login')" [hidden]="userDataSession">
       <div ion-button class="back-button cursor-pointer">
@@ -280,11 +284,11 @@
         <div> Iniciar sesión</div>
       </div>
     </div>
-    <h2 class="ion-text-center title-modal mt-3 password-recovery">Recuperar contraseña </h2>
+    <h2 class="ion-text-center title-modal mt-3 password-recovery">Recuperar Contraseña </h2>
     <div class="padding-container scroll-90 min-height">
       <form [formGroup]="recoveryForm" (ngSubmit)="onRecoverySubmit()" class="mt-2">
         <ion-list-header>
-          Ingresa la dirección de correo electrónico
+          Ingresa la dirección de correo electrónico para enviarte el link de cambio de contraseña
         </ion-list-header>
         <ion-list>
           <ion-grid>
@@ -301,10 +305,10 @@
                 </div>
               </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row class="justify-content-center">
               <ion-col size="8">
-                <ion-button class="button-green" shape="round" expand="full" class="button-green" type="submit">
-                  Recuperar clave</ion-button>
+                <ion-button class="button-green" shape="round" expand="full" class="button-green mt-3" type="submit">
+                  Recuperar contraseña</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -325,15 +329,21 @@
       </form>
     </div>
   </div>
+
+  <div *ngIf="showMenu == 'account-profile'">
+     <page-account (onShowMenuChangePassword)="onShowMenuChangePassword($event)"></page-account>
+  </div>
+
   <div *ngIf="showMenu == 'recovery-token'">
-    <h2 class="ion-text-center title-modal mt-3 password-recovery">Recuperar contraseña </h2>
+   
+    <h2 class="ion-text-center title-modal mt-3 password-recovery">Cambio de contraseña </h2>
     <div class="padding-container scroll-90 min-height">
 
-      <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()">
+      <form [formGroup]="changePasswordLinkForm" (ngSubmit)="onResetPassword()">
         <ion-list-header>
           <span class="h-100 mt-1">Realiza el cambio de clave para el correo  &nbsp;<strong>
-            {{recoveryData.emailToken.substr(0,3)}}***@{{recoveryData.emailToken.split('@')[1]}} </strong>
-          </span>
+            {{emailRecovery.substr(0,3)}}***@{{emailRecovery.split('@')[1]}} </strong>
+          </span> 
         </ion-list-header>
         <ion-list style=" margin-top: -16px;">
           <ion-grid>
@@ -342,11 +352,10 @@
                 <ion-label position="stacked" class="fs-0">
                   Nueva Contraseña <span class="required"> (*) </span>
                 </ion-label>
-                <input type="text" formControlName="newPassrword" class="fs-0 mt-1 form-control"
-                  [ngClass]="{ 'is-invalid': submitted && g.newPassrword.errors }" />
-                <div *ngIf="submitted && p.newPassrword.errors" class="invalid-feedback">
-                  <div *ngIf="p.newPassrword.errors.required">Campo requerido</div>
-                  <div *ngIf="p.newPassrword.errors.mustMatch">Contraseñas no coinciden</div>
+                <input type="password" formControlName="newPassword" class="fs-0 mt-1 form-control"
+                  [ngClass]="{ 'is-invalid': submitted && p.newPassword.errors }" />
+                <div *ngIf="submitted && p.newPassword.errors" class="invalid-feedback">
+                  <div *ngIf="p.newPassword.errors.required">Campo requerido</div>
                 </div>
               </ion-col>
             </ion-row>
@@ -355,11 +364,11 @@
                 <ion-label position="stacked" class="fs-0">
                   Confirmar Nueva Contraseña <span class="required"> (*) </span>
                 </ion-label>
-                <input type="text" formControlName="confirNewPassrword" class="fs-0 mt-1 form-control"
-                  [ngClass]="{ 'is-invalid': submitted && g.confirNewPassrword.errors }" />
-                <div *ngIf="submitted && p.confirNewPassrword.errors" class="invalid-feedback">
-                  <div *ngIf="p.confirNewPassrword.errors.required">Campo requerido</div>
-                  <div *ngIf="p.confirNewPassrword.errors.mustMatch">Contraseñas no coinciden</div>
+                <input type="password" formControlName="confirmNewPassword" class="fs-0 mt-1 form-control"
+                  [ngClass]="{ 'is-invalid': submitted && p.confirmNewPassword.errors }" />
+                <div *ngIf="submitted && p.confirmNewPassword.errors" class="invalid-feedback">
+                  <div *ngIf="p.confirmNewPassword.errors.required">Campo requerido</div>
+                  <div *ngIf="p.confirmNewPassword.errors && !p.confirmNewPassword.errors.required">Contraseñas no coinciden</div>
                 </div>
               </ion-col>
             </ion-row>
@@ -376,12 +385,72 @@
             </ion-row>
           </ion-grid>
         </ion-list>
+      </form> 
+    </div> 
+  </div>
+
+  <div *ngIf="showMenu == 'change-password'">
+    <h2 class="ion-text-center title-modal mt-3 password-recovery">Cambio de contraseña </h2>
+    <div class="padding-container scroll-90 min-height">
+
+      <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
+        <ion-list-header>
+          <span class="h-100 mt-1">Realiza el cambio de clave para el correo  &nbsp;<strong>
+            {{emailRecovery}}</strong>
+          </span> 
+        </ion-list-header>
+        <ion-list style=" margin-top: -16px;">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label position="stacked" class="fs-0">
+                  Nueva Contraseña <span class="required"> (*) </span>
+                </ion-label>
+                <input type="password" formControlName="newPassword" class="fs-0 mt-1 form-control"
+                  [ngClass]="{ 'is-invalid': submitted && cp.newPassword.errors }" />
+                <div *ngIf="submitted && cp.newPassword.errors" class="invalid-feedback">
+                  <div *ngIf="cp.newPassword.errors.required">Campo requerido</div>
+                  <div *ngIf="cp.newPassword.errors.minlength">Longitud mínima 6 caracteres</div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label position="stacked" class="fs-0">
+                  Confirmar Nueva Contraseña <span class="required"> (*) </span>
+                </ion-label>
+                <input type="password" formControlName="confirmNewPassword" class="fs-0 mt-1 form-control"
+                  [ngClass]="{ 'is-invalid': submitted && cp.confirmNewPassword.errors }" />
+                <div *ngIf="submitted && cp.confirmNewPassword.errors" class="invalid-feedback">
+                  <div *ngIf="cp.confirmNewPassword.errors.required">Campo requerido</div>
+                  <div *ngIf="cp.confirmNewPassword.errors && !cp.confirmNewPassword.errors.required">Contraseñas no coinciden</div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-item [hidden]="!errors" class="not-found" lines="none">
+              <app-network-status></app-network-status>
+              <div class="alert alert-danger alert-dismissible">
+                <a href="javascript:void(0)" class="close" aria-label="close" (click)="errors=null" title="close">×</a>
+                <strong></strong> {{errors}}
+              </div>
+            </ion-item>
+            <ion-item *ngIf="success" class="not-found" lines="none">
+              <div class="alert alert-success alert-dismissible">
+                <a href="javascript:void(0)" class="close" aria-label="close" (click)="success=null" title="close">×</a>
+                <strong></strong> {{success}}
+              </div>
+            </ion-item>
+            <ion-row class="p-2">
+                <ion-button shape="round" expand="full" class="button-green m-auto" type="submit">Cambiar contraseña
+                </ion-button>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
       </form>
-
-
-
     </div>
   </div>
+  
+
   <div *ngIf="showMenu === 'terms'">
     <div (click)="onChangeMenu('singup')" [hidden]="showMenu === 'terms'">
       <div ion-button class="back-button cursor-pointer">
@@ -391,7 +460,7 @@
     </div>
     <h2 class="ion-text-center title-modal">Términos y condiciones </h2>
     <ion-list class="padding-container scroll-90" style="height: 49em">
-      <div *ngFor="let item of fair?.resources?.terms?.elements; let i = index;">
+      <div *ngFor="let item of app?.resources?.terms?.elements; let i = index;">
         <div class="item-add mt-3 mb-3">
           <div *ngIf="admin" class="delete-terms" [ngClass]="{'video': item.video,'paragraph': item.paragraph}">
             <ion-button class="fs-0" size="small" color="danger" fill="outline" (click)="onDeleteItemAdded(i)">

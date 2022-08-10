@@ -18,11 +18,11 @@ export class LoginComponent implements OnInit {
 
   @Input() showMenu: string;
   @Input() admin: string;
-  @Input() email_recovery: string;
+  @Input() emailRecovery: string;
+  @Input() tokenRecovery: string;
   @Input() _parent: any;
   @Input() errors: any;
-  @Input() recoveryData: any;
-
+  
   email: string;
   submitted = false;
   success = null;
@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   registerForm: FormGroup;
   recoveryForm: FormGroup;
   changePasswordForm: FormGroup;
+  changePasswordLinkForm: FormGroup;
+  
   singupConfirmForm: FormGroup;
   userDataSession: any;
   profileRole: any;
@@ -68,18 +70,16 @@ export class LoginComponent implements OnInit {
         });
       }
     });
-
-
   }
 
   ngOnInit() {
     this.showMenu = this.showMenu || 'login';
-
+    
     if (this.showMenu === 'singupConfirm') {
-      this.singupConfirmMsg = `Ingresa el código de verificación enviado al correo electrónico ${this.email_recovery}`;
+      this.singupConfirmMsg = `Ingresa el código de verificación enviado al correo electrónico ${this.emailRecovery}`;
       this.showConfirmAccount = true;
     }
-
+    
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
 
-    let emailToken = this.email_recovery || (this.recoveryData ? this.recoveryData.emailToken : '');
+    let emailToken = this.emailRecovery || '';
     this.recoveryForm = this.formBuilder.group({
       email: [(emailToken), [Validators.required, Validators.email]]
     });
@@ -111,11 +111,19 @@ export class LoginComponent implements OnInit {
     });
 
     this.changePasswordForm = this.formBuilder.group({
-      newPassrword: ['', [Validators.required, Validators.minLength(6)]],
-      confirNewPassrword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmNewPassword: ['', Validators.required]
     }, {
-      validator: MustMatch('newPassrword', 'confirNewPassrword')
+      validator: MustMatch('newPassword', 'confirmNewPassword')
     });
+
+    this.changePasswordLinkForm = this.formBuilder.group({
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmNewPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('newPassword', 'confirmNewPassword')
+    });
+
   }
 
   ngDoCheck() {
@@ -139,12 +147,50 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/signup');
   }
 
-  onRecoverPassword() {
-    this.router.navigateByUrl('/recoverPassword');
+  onResetPassword() {
+    this.submitted = true;
+    this.errors = null;
+    this.success = null;
+
+    // stop here if form is invalid
+    if (this.changePasswordLinkForm.invalid) {
+      return;
+    }
+
+    this.loading.present({ message: 'Cargando...' });
+
+    const recoveryData = {
+      'email': this.emailRecovery,
+      'origin': window.location.origin,
+      'password': this.changePasswordLinkForm.value['newPassword'],
+      'password_confirmation': this.changePasswordLinkForm.value['newPassword'],
+      'token': this.tokenRecovery
+    }
+    this.usersService.resetPassword(recoveryData)
+      .then(
+        data => {
+          this.submitted = false;
+          if (data.overall_status === 'successfull') {
+            this.loading.dismiss();
+            this.success = data.message;
+            this.presentToast(this.success, 'success');
+            this.onChangeMenu('login');
+          }
+          else {
+            this.loading.dismiss();
+            this.errors = 'Consultando el servicio para cambiar clave';
+          }
+        },
+        error => {
+          this.loading.dismiss();
+          this.errors = error;
+          this.submitted = false;
+        });
+
   }
 
   closeModal() {
-    this._parent.closePresenterModal();
+    if(this._parent) this._parent.closePresenterModal();
     this.modalCtrl.dismiss();
   }
 
@@ -152,7 +198,10 @@ export class LoginComponent implements OnInit {
   get f() { return this.registerForm.controls; }
   get g() { return this.recoveryForm.controls; }
   get sc() { return this.singupConfirmForm.controls; }
-  get p() { return this.changePasswordForm.controls; }
+  get p() { return this.changePasswordLinkForm.controls; }
+  get cp() { return this.changePasswordForm.controls; }
+  
+  
 
   onLoginSubmit() {
     this.submitted = true;
@@ -237,7 +286,7 @@ export class LoginComponent implements OnInit {
       'email': this.recoveryForm.value['email'],
       'origin': window.location.origin
     }
-    this.usersService.recoverPassword(recoveryData)
+    this.usersService.recoveryPassword(recoveryData)
       .then(
         data => {
           this.submitted = false;
@@ -259,48 +308,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onChangePasswordSubmit() {
-    this.submitted = true;
-    this.errors = null;
-    this.success = null;
-
-    // stop here if form is invalid
-    if (this.changePasswordForm.invalid) {
-      return;
-    }
-
-    this.loading.present({ message: 'Cargando...' });
-
-    const recoveryData = {
-      'email': this.recoveryForm.value['email'],
-      'origin': window.location.origin
-    }
-    this.usersService.recoverPassword(recoveryData)
-      .then(
-        data => {
-          this.submitted = false;
-          if (data.success === 201) {
-            this.loading.dismiss();
-            this.success = data.message;
-            this.presentToast(this.success, 'success');
-          }
-          else {
-            this.loading.dismiss();
-            if (data.email) {
-              this.errors = 'Correo electrónico ya registrado';
-            }
-            else {
-              this.errors = 'Consultando el servicio para creación del usuario';
-            }
-          }
-        },
-        error => {
-          this.loading.dismiss();
-          this.errors = error;
-          this.submitted = false;
-        });
-
-  }
 
   onLogin(userData) {
     this.loading.present({ message: 'Cargando...' });
@@ -521,7 +528,7 @@ export class LoginComponent implements OnInit {
     this.loading.present({ message: 'Cargando...' });
 
     let code = this.singupConfirmForm.value['item1'] + this.singupConfirmForm.value['item2'] + this.singupConfirmForm.value['item3'] + this.singupConfirmForm.value['item4'] + this.singupConfirmForm.value['item5'] + this.singupConfirmForm.value['item6'];
-    this.emailSingConfirm = this.emailSingConfirm || this.email_recovery;
+    this.emailSingConfirm = this.emailSingConfirm || this.emailRecovery;
     this.usersService.singupValidate(this.emailSingConfirm, code)
       .then(data => {
         if (data.error) {
@@ -622,6 +629,54 @@ export class LoginComponent implements OnInit {
       element.focus();
     }
   }
+
+  onShowMenuChangePassword (emailRecovery) {
+    this.emailRecovery = emailRecovery;
+    this.changePasswordForm.controls['newPassword'].setValue('');
+    this.changePasswordForm.controls['confirmNewPassword'].setValue('');
+    this.onChangeMenu( 'change-password');
+  }
+
+  onChangePassword () {
+    
+    this.submitted = true;
+    
+    // stop here if form is invalid    
+    if (this.changePasswordForm.invalid) {
+      return;
+    }
+
+    this.errors = null;
+    this.success = null;
+
+    const userData = {
+      'password': this.changePasswordForm.value['confirmNewPassword']
+    };
+    
+    this.loading.present({ message: 'Cargando...' });
+
+    this.usersService.updateUser(this.userDataSession, userData)
+      .then(data => {
+        if (data.overall_status === "successfull") {
+          this.loading.dismiss();
+          this.usersService.setUser(Object.assign({ password: this.changePasswordForm.value['newPassword'] }, this.userDataSession));
+          this.success = data.message;
+          this.success = 'Contraseña modificada exitósamente';
+          this.presentToast(this.success,null);
+          this.onChangeMenu('account-profile');
+        }
+        else {
+          //this.loading.dismiss();
+          this.errors = 'Consultando el servicio para creación del usuario. ' + JSON.stringify(data.errors);
+        }
+      },
+        error => {
+          //this.loading.dismiss();
+          this.errors = error;
+        });
+  }
+
+
 
 }
 

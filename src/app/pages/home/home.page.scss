@@ -31,6 +31,7 @@
         .swiper-image {
             height: 33vw !important;
         }
+
         .swiper-image-title {
             margin-top: 5vw !important;
         }
@@ -227,7 +228,14 @@
     background: rgba(247, 249, 251, 0.6);
 }
 
+.new-product-sales {
+    margin-left: 8px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
 
+.new-product-sales,
 .new-product {
     padding: 2vw;
     text-align: center;
@@ -259,6 +267,7 @@
     }
 }
 
+.new-product-sales.small-screen,
 .new-product.small-screen {
 
     .product-image {
@@ -449,4 +458,69 @@
         height: 2vw;
         margin: 1vw;
     }
+}
+
+.menu-tabs {
+    margin-top: -2.6vw;
+    display: flex;
+
+
+    .tab-menu {
+        color: white;
+        background-color:  rgb(3,196,169);
+        font-size: 1.2vw;
+        padding: 0.6vw;
+        min-width: 14vw;
+        text-align: center;
+        margin-left: 8px;
+        border-top-right-radius: 17px;
+        border-top-left-radius: 17px;
+        height: 3.2vw;
+        cursor: pointer;
+    }
+
+    .tab-menu:hover,
+    .tab-menu.selected {
+        border-left: 1px solid lightgray;
+        background: white;
+        border-right: 1px solid lightgray;
+        background: white;
+        color:  rgb(3,196,169);
+
+        span {
+            border-bottom: 1px solid  rgb(3,196,169);
+        }
+    }
+}
+
+.menu-tabs.shadow {
+    position: absolute;
+    z-index: 1;
+}
+
+.sales {
+    background-color: white;
+    border-left: 1px solid lightgray;
+    border-top-right-radius: 18px;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    width: 100%;
+    margin-top: 0.5vw;
+    margin-left: 8px;
+}
+
+.category-sales {
+    padding: 1vw;
+    font-size: 1vw;
+
+    ion-checkbox {
+        margin-left: 1em;
+        margin-right: 1em;
+        cursor: pointer;
+    }
+}
+
+.green-light {
+    background-color: rgb(3,196,169);
+    --background: rgb(3,196,169);
 }

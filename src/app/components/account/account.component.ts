@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UsersService } from '../../api/users.service';
@@ -18,8 +18,10 @@ declare var cloudinary: any;
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountComponent implements AfterViewInit {
+export class AccountComponent implements OnInit {
 
+  @Output() onShowMenuChangePassword = new EventEmitter<string>();
+  @Output() onClose = new EventEmitter<string>();
 
   userData: any;
   showChangeImageBtn = false;
@@ -34,7 +36,7 @@ export class AccountComponent implements AfterViewInit {
   imageCropper: any;
   cropper: any;
   vanilla: any;
-  myWidgetFalse;
+  myWidgetFalse: any;
 
   constructor(
     private alertCtrl: AlertController,
@@ -45,12 +47,10 @@ export class AccountComponent implements AfterViewInit {
     private modalCtrl: ModalController,
   ) { }
 
-  ngDoCheck() {
-    document.querySelector<HTMLElement>('ion-router-outlet').style.top = '0px';
-  }
-
-  ngAfterViewInit() {
+  ngOnInit() {
+    
     this.getUser();
+
     this.myWidgetFalse = cloudinary.createUploadWidget(
       {
         cloudName: "deueufyac",
@@ -174,8 +174,6 @@ export class AccountComponent implements AfterViewInit {
     await alert.present();
   }
 
-
-
   async changeName() {
     const alert = await this.alertCtrl.create({
       header: 'Cambiar Nombre',
@@ -243,14 +241,9 @@ export class AccountComponent implements AfterViewInit {
     });
   }
 
-  changePassword() {
-
-  }
-
   support() {
     this.router.navigateByUrl('/support');
   }
-
 
   onUpdateUser() {
 
@@ -258,35 +251,33 @@ export class AccountComponent implements AfterViewInit {
     const dt = {};
     this.errors = null;
     dt[this.keyUpdate] = this.objectUpdate;
-
-
-    this.usersService.getUser().then((userDataSession: any) => {
-      this.usersService.updateUser(userDataSession, dt)
-        .subscribe(
-          data => {
-
-            if (data.success == 201) {
-              this.userData.url_image = data.data.url_image;
-              this.userData.name = data.data.name;
-              this.userData.last_name = data.data.last_name;
-              this.url_image = data.data.url_image;
-              this.usersService.setUser(this.userData).then((data) => {
-                this.presentToast('Registro guardado Exitosamente');
-              });
-              this.loading.dismiss();
-            }
-            else {
-              this.errors = "Error actualizando los datos";
-              this.presentToast(this.errors);
-              this.loading.dismiss();
-            }
-          },
-          error => {
+    
+    this.usersService.updateUser(this.userData, dt)
+    .then(data => {
+          if (data.overall_status == 'successfull') {
+            const user = data.data.user;
+            this.userData.url_image = user.url_image;
+            this.userData.name = user.name;
+            this.userData.last_name = user.last_name;
+            this.url_image = user.url_image;
             this.loading.dismiss();
-            this.errors = error;
+            this.usersService.setUser(this.userData).then((data) => {
+              this.getUser();
+              this.presentToast('Datos modificados exitósamente');
+            });
+          }
+          else {
+            this.errors = "Error actualizando los datos";
             this.presentToast(this.errors);
-          });
-    });
+            this.loading.dismiss();
+          }
+        },
+        error => {
+          this.loading.dismiss();
+          this.errors = error;
+          this.presentToast(this.errors);
+        });
+
   }
 
   async presentLogout() {
@@ -343,23 +334,9 @@ export class AccountComponent implements AfterViewInit {
   }
 
   async presenterRecovery() {
-
-    //if(this.modal) { this.modal.dismiss(); }
-
-    this.modal = await this.modalCtrl.create({
-      component: LoginComponent,
-      cssClass: 'boder-radius-modal',
-      componentProps: {
-        '_parent': this,
-        'showMenu': 'recovery',
-        'email_recovery': this.userData.email
-      }
-    });
-    await this.modal.present();
-    const { data } = await this.modal.onWillDismiss();
-
-    if (data) {
-    }
+    //const data = { "emailRecovery": this.userData.email, "errors": null };
+    //window.dispatchEvent(new CustomEvent('show:recovery-modal', { detail: data }));
+    this.onShowMenuChangePassword.emit(this.userData.email);
   }
 
   closeModal() {

@@ -12,11 +12,32 @@
                 <div class="banner-image-footer fs-0 mt-1 pl-6">{{banner.footer}}</div>
             </div>
         </ion-row>
+
+        <ion-row class="mt-2">
+            <div class="filter-container d-flex">
+                <div class="filter-label">
+                    <ion-icon name="funnel-sharp"></ion-icon>
+                    FILTRAR POR
+                </div>
+                <div (click)="onChangeCategorySale(category,null)"
+                    [ngClass]="{'selected': categorySelected.id == category.id}" class="filter-item"
+                    *ngFor="let category of categorySales">{{category.name}}
+                    <ion-icon class="icon-down" name="chevron-down"></ion-icon>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="filter-attr-container d-flex padding-container" *ngIf="categorySelected && categorySelected.attributes">
+            <div fill="outline" (click)="onChangeCategorySale(categorySelected, attr)"
+                [ngClass]="{'selected': attributeSelected == attr}" class="filter-attr-item"
+                *ngFor="let attr of categorySelected.attributes">{{attr}}
+            </div>
+        </ion-row>
+
         <ion-row>
             <ion-grid class="products-section linear-color-blue-2 ion-text-center">
                 <ion-row>
                     <ion-col class="product-legend" [size]="largeScreen ? 4 : 12"
-                        *ngFor="let product of products">
+                        *ngFor="let product of productListFiltered">
                         <img class="product-image shadow-box-2" [src]="product.image_url">
                         <div class="product-title mt-1 fs-1">{{product.name}}</div>
                         <div class="mt-1 product-detail fs-0">{{product.attr1}}</div>
