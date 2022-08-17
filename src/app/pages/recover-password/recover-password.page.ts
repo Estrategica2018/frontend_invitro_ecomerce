@@ -22,10 +22,6 @@ export class RecoverPasswordPage implements OnInit {
 
   }
 
-  ngDoCheck() {
-    document.querySelector<HTMLElement>('ion-router-outlet').style.top = '0px';
-  }
-
   ngOnInit() {
 
     let token = this.route.snapshot.paramMap.get('token');

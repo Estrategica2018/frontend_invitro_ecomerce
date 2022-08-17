@@ -185,14 +185,14 @@ ion-input {
   margin-left: -2vw;
 }
 
-@media screen and (min-width:800px) and (max-width:1200px) {
+@media screen and (min-width:768px) and (max-width:1200px) {
   .register-btn {
     width: 23vw;
     margin-left: -10vw;
   }
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:768px) {
   .register-btn {
     width: 33vw;
     margin-left: -10vw;

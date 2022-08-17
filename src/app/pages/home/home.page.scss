@@ -14,6 +14,13 @@
         z-index: 2;
     }
 
+    @media screen and (max-width: 768px) {
+        .swiper-image-button ion-button::part(native) {
+            position: relative;
+            right: -23vw;
+        }
+    }
+
     img {
         position: absolute;
         left: 0;
@@ -27,16 +34,6 @@
         margin-top: 11vw !important;
     }
 
-    @media (max-width: 800px) {
-        .swiper-image {
-            height: 33vw !important;
-        }
-
-        .swiper-image-title {
-            margin-top: 5vw !important;
-        }
-    }
-
     .swiper-image-name {
         font-family: YoutubeSansBold;
         font-size: 3vw;
@@ -48,8 +45,22 @@
         margin-bottom: 2vw !important;
     }
 
-}
 
+    @media screen and (max-width: 768px) {
+        .swiper-image {
+            height: 33vw !important;
+        }
+
+        .swiper-image-title {
+            margin-top: 2vw !important;
+        }
+
+        .swiper-image-desc {
+            margin-bottom: 0vw !important;
+        }
+    }
+
+}
 
 ::ng-deep .swiper-button-next,
 ::ng-deep .swiper-button-prev {
@@ -75,7 +86,7 @@
     .services-info-legend {
         position: relative;
         width: 84%;
-        left: -9%;
+        left: -12%;
         background: white;
         top: 8vw;
         padding: 2vw;
@@ -229,10 +240,16 @@
 }
 
 .new-product-sales {
-    margin-left: 8px;
+    margin-left: 0.5vw;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+}
+
+@media screen and (max-width: 768px) {
+    .new-product-sales {
+        margin-left: 1vw;
+    }
 }
 
 .new-product-sales,
@@ -451,7 +468,6 @@
     }
 }
 
-
 .circle-section.small-screen {
     .circle {
         width: 2vw;
@@ -464,19 +480,32 @@
     margin-top: -2.6vw;
     display: flex;
 
-
     .tab-menu {
         color: white;
-        background-color:  rgb(3,196,169);
+        background-color: rgb(3, 196, 169);
         font-size: 1.2vw;
         padding: 0.6vw;
         min-width: 14vw;
         text-align: center;
-        margin-left: 8px;
-        border-top-right-radius: 17px;
-        border-top-left-radius: 17px;
+        margin-left: 0.5vw;
         height: 3.2vw;
         cursor: pointer;
+    }
+
+    @media (min-width: 768px) and (max-width: 1200px) {
+        .tab-menu {
+            font-size: 1.3vw !important;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .tab-menu {
+            font-size: 2.3vw !important;
+            padding: -0.4vw !important;
+            min-width: 22vw !important;
+            margin-left: 1vw;
+            height: 5.3vw !important;
+        }
     }
 
     .tab-menu:hover,
@@ -485,10 +514,10 @@
         background: white;
         border-right: 1px solid lightgray;
         background: white;
-        color:  rgb(3,196,169);
+        color: rgb(3, 196, 169);
 
         span {
-            border-bottom: 1px solid  rgb(3,196,169);
+            border-bottom: 1px solid rgb(3, 196, 169);
         }
     }
 }
@@ -506,12 +535,13 @@
     border-top: 1px solid lightgray;
     width: 100%;
     margin-top: 0.5vw;
-    margin-left: 8px;
+    margin-left: 0.5vw;
 }
 
-.category-sales {
+.sales-category {
     padding: 1vw;
     font-size: 1vw;
+    display: flex;
 
     ion-checkbox {
         margin-left: 1em;
@@ -520,7 +550,44 @@
     }
 }
 
+
+
 .green-light {
-    background-color: rgb(3,196,169);
-    --background: rgb(3,196,169);
+    background-color: rgb(3, 196, 169);
+    --background: rgb(3, 196, 169);
+}
+
+.product-item {}
+
+.product-item:hover {
+    background-color: rgb(112, 112, 112, 0.05);
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+.padding-container-services{
+    padding: 0px 0vw 0px 6vw;
+}
+
+.services-container {    
+    text-align: center;
+    margin-left: 0.5vw;
+    padding: 0;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+@media screen and (max-width: 768px) {
+    .menu-tabs {
+        margin-top: -4.6vw;
+    }
+
+    .sales {
+        margin-left: 1vw;
+    }
+
+    .padding-container-services{
+        padding: 0;
+    }
 }

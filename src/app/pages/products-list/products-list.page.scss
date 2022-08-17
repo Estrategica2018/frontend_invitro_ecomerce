@@ -48,7 +48,7 @@
         width: 100%;
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 768px) {
         .product-image {
             width: 60%;
         }
@@ -69,8 +69,7 @@
 
 .filter-container {
     background-color: rgb(235, 235, 235);
-    font-size: 1.2vw;
-
+    
     .filter-label {
         padding: 0.8vw 1.5vw
     }
@@ -96,19 +95,18 @@
 
 .filter-attr-container {
 
-    font-size: 1.5vw;
     padding: 2vw 6vw;
     background-color: rgb(248, 248, 248);
 
     .filter-attr-item {
+        cursor: pointer;
         border-radius: 43px;
         border: 1px solid rgb(3, 196, 169);
         color: rgb(3, 196, 169);
         text-align: center;
-        cursor: pointer;
-        font-size: 1vw;
         padding: 0.3vw 1vw;
-        margin: 0px 0.6vw;
+        margin-left: 0.8vw;
+        margin-top: 1vw;
         font-family: YoutubeSansMedium;
     }
 
@@ -119,4 +117,21 @@
         background-color: rgb(13, 206, 179, 0.5);
 
     }
+
+    @media screen and (max-width: 768px){
+        .filter-attr-item {
+            padding: 0.3vw 1vw;
+            margin-left: 0.8vw;
+            margin-top: 1vw;
+        }
+    }
+}
+
+.product-item {
+
+}
+.product-item:hover {
+    background-color: rgb(112, 112, 112,0.05);
+    border-radius: 10%;
+    cursor: pointer;
 }

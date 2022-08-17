@@ -4,14 +4,14 @@
     margin-top: 1vw;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .title {
         margin-top: 3vw;
         margin-bottom: 2.5vw;
     }
 }
 
-@media only screen and (max-width: 1200px) and (min-width: 800px) {
+@media only screen and (max-width: 1200px) and (min-width: 768px) {
     .title {
         margin-bottom: 2vw;
     }
@@ -24,7 +24,7 @@
     }
 
     
-    @media (max-width: 800px) {
+    @media (max-width: 768px) {
         .sub-menu-item {
             --min-height: 4.2vw;
         }
@@ -44,7 +44,7 @@
     height: 8vw;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .contact-section {
         margin-left: 0vw !important;
         padding-left: 5vw !important;
@@ -56,7 +56,7 @@
     }
 }
 
-@media only screen and (max-width: 1200px) and (min-width: 800px) {
+@media only screen and (max-width: 1200px) and (min-width: 768px) {
     .contact-section {
         margin-left: 0vw !important;
     }
@@ -115,7 +115,7 @@
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .social-media {
         margin-top: 2vw;
 

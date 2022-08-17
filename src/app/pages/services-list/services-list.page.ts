@@ -8,7 +8,7 @@ import {  ServicesService } from '../../api/services.service';
 })
 export class ServicesListPage implements OnInit {
 
-  largeScreen: boolean = window.innerWidth >= 800;
+  largeScreen: boolean = window.innerWidth >= 768;
   services : any;
 
   banner = {
@@ -28,7 +28,7 @@ export class ServicesListPage implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.largeScreen = event.target.innerWidth >= 800;
+    this.largeScreen = event.target.innerWidth >= 768;
   }
 
 }

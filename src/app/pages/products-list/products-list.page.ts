@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ProductsService } from '../../api/products.service';
 import { Animation, AnimationController } from '@ionic/angular';
 import { faTruckRampBox } from '@fortawesome/free-solid-svg-icons';
+import { LoadingService } from './../../providers/loading.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
@@ -10,7 +12,7 @@ import { faTruckRampBox } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProductsListPage implements OnInit {
 
-  largeScreen = window.innerWidth >= 800;
+  largeScreen = window.innerWidth >= 768;
   animation: Animation;
 
   banner = {
@@ -21,63 +23,82 @@ export class ProductsListPage implements OnInit {
   };
 
   categorySales = [];
-  categorySaleSelected = 1;
+  categorySaleSelected = null;
   productList = [];
   productListFiltered = [];
   categorySelected: any;
   attributeSelected: string;
   categoryAttributesSales = [];
+  errors: string;
 
   constructor(
     private animationCtrl: AnimationController,
-    private productsApi: ProductsService) { }
+    private productsService: ProductsService,
+    private loading: LoadingService,
+    private router: Router,) { }
 
   ngOnInit() {
     this.productListInitialize();
   }
 
   productListInitialize() {
-    this.productList = this.productsApi.mockNewProducts();
-    let mbControl = false;
-    this.categorySales = [];
-    let mbcontrol: boolean;
-    this.categoryAttributesSales = [];
 
-    for (let product of this.productList) {
-      mbControl = false;
-      for (let category of this.categorySales) {
-        if (category.id == product.category.id) {
-          mbControl = true;
-        }
-      }
-      if (!mbControl) {
-        this.categorySales.push(product.category);
-      }
+    this.loading.present({ message: 'Cargando...' });
+    let category : any;
+    
+    this.productsService.getProducts()
+      .then((productDetail: any) => {
 
-      product.category.attributes = product.category.attributes || [];
+        this.loading.dismiss();
+        this.productList = productDetail;
+        let mbControl = false;
+        this.categorySales = [];
+        let mbcontrol: boolean;
+        this.categoryAttributesSales = [];
 
-      product.attributes = product.attributes || '';
-
-      for (let attr of product.attributes.split('|')) {
-        mbcontrol = false;
-        for (let attrCategory of product.category.attributes) {
-          if (attr == attrCategory) {
-            mbcontrol = true;
+        for (let product of this.productList) {
+          mbControl = false;
+          for (let category of this.categorySales) {
+            if (category.id == product.category.id) {
+              mbControl = true;
+              category = category;
+              break; 
+            }
           }
-        }
-        if (!mbcontrol) {
-          product.category.attributes.push(attr);
-        }
-      }
+          if (!mbControl) {
+            category = product.category;
+            this.categorySales.push(category);
+          }
 
-    }
+          category.attributes = category.attributes || [];
 
-    if(this.categorySales.length > 0 ) {
-       this.onChangeCategorySale(this.categorySales[0], null);
-    }
-    else {
-      this.productListFiltered = [];
-    }
+          product.attributes = product.attributes || '';
+
+          for (let attr of product.attributes.split('|')) {
+            mbcontrol = false;
+            for (let attrCategory of category.attributes) {
+              if (attr == attrCategory) {
+                mbcontrol = true;
+              }
+            }
+            if (!mbcontrol) {
+              category.attributes.push(attr);
+            }
+          }
+
+        }
+
+        if (this.categorySales.length > 0) {
+          this.onChangeCategorySale(this.categorySales[0], null);
+        }
+        else {
+          this.productListFiltered = [];
+        }
+
+      }, error => {
+        this.loading.dismiss();
+        this.errors = error;
+      });
   }
 
   onChangeCategorySale(category: any, attribute: string) {
@@ -96,28 +117,33 @@ export class ProductsListPage implements OnInit {
     });
 
     this.productListFiltered = this.productList.filter((product) => {
-      if (product.category && product.category.id == this.categorySelected.id) {
-        if (attribute) {
-          for (let attr of product.attributes.split('|')) {
-            if (attr == attribute) {
-              return true;
+      
+        if (product.category && product.category.id == this.categorySelected.id) {
+          if (attribute) {
+            for (let attr of product.attributes.split('|')) {
+              if (attr == attribute) {
+                return true;
+              }
             }
+            return false;
           }
-          return false;
+          else return true;
         }
-        else return true;
-      }
-      return false;
+        return false;
     });
 
     this.animation.play();
 
   }
 
-  
+
+  goToUrl(url: string) {
+    this.router.navigate([url]);
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.largeScreen = event.target.innerWidth >= 800;
+    this.largeScreen = event.target.innerWidth >= 768;
   }
 
 }

@@ -7,7 +7,7 @@ ion-toolbar {
     height: auto;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:768px) {
     .icon-img {
         width: 16vw;
     }
@@ -37,7 +37,16 @@ ion-segment > .menu-title:last-child {
     height: 2.5vw;
 }
 
-@media screen and (max-width: 800px){
+
+@media screen and (min-width: 768px) and (max-width: 1200px){
+    .end-menu-button::part(native) {
+        width: 18vw;
+        height: 6.5vw;
+    }
+}
+
+
+@media screen and (max-width: 768px){
     .end-menu-button::part(native) {
         width: 23vw;
         height: 6.5vw;

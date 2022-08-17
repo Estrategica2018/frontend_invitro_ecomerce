@@ -22,9 +22,9 @@
     </ion-button>
     <ion-badge [hidden]="showBannerSideMenu" class="icon-badge" color="danger"
       *ngIf="userDataSession && shoppingCartCount > 0">{{shoppingCartCount}}</ion-badge>
-    <ion-button [hidden]="showBannerSideMenu" class="d-md-flex end-menu-button fs-0" color="secondary"
+    <ion-button [hidden]="showBannerSideMenu" class="d-md-flex  " color="secondary"
       (click)="presenterLogin()" *ngIf="!loggedIn" fill="outline" shape="round">
-      <ion-icon slot="start" ios="ios-person" md="person"></ion-icon>
+      <ion-icon slot="start" class="fs-1" ios="ios-person" md="person"></ion-icon>
       Acceder
     </ion-button>
     <ion-button [hidden]="showBannerSideMenu" class="d-md-flex cursor-pointer" *ngIf="loggedIn"

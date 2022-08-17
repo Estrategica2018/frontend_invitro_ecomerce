@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 export class FooterComponent implements OnInit {
 
   largeScreen = window.innerWidth >= 1200;
-  mediumScreen = window.innerWidth >= 800 && window.innerWidth < 1200;
+  mediumScreen = window.innerWidth >= 768 && window.innerWidth < 1200;
 
   appFooterPages = [
     {
@@ -72,6 +72,6 @@ export class FooterComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.largeScreen = event.target.innerWidth >= 1012;
-    this.mediumScreen = event.target.innerWidth >= 800 && event.target.innerWidth < 1200;
+    this.mediumScreen = event.target.innerWidth >= 768 && event.target.innerWidth < 1200;
   }
 }

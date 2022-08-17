@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="col-1_5">
+        <div class="container-collage">
+          <div>
+            <img *ngFor="let url of product?.images" (click)="onUrlSelect(url)" class="image-collage" [src]="url">
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <img class="image-selected" [src]="urlSelect">
+      </ion-col>
+      <ion-col size="12" size-md="6" class="detail-content">
+        <ion-row class="product-name fs-1">{{product?.name2 || 'HOUSAm0069981349 | DOB | 12/28/2010'}}</ion-row>
+        <ion-row class="fs-0 mt-1">
+          <ion-col>
+            <div class="d-flex youtube-sans-light">
+              <div class="star" [ngClass]="{'selected': product?.qualification >=1 }">
+                <fa-icon icon="star"></fa-icon>
+              </div>
+              <div class="star" [ngClass]="{'selected': product?.qualification >=2 }">
+                <fa-icon icon="star"></fa-icon>
+              </div>
+              <div class="star" [ngClass]="{'selected': product?.qualification >=3 }">
+                <fa-icon icon="star"></fa-icon>
+              </div>
+              <div class="star" [ngClass]="{'selected': product?.qualification >=4 }">
+                <fa-icon icon="star"></fa-icon>
+              </div>
+              <div class="star" [ngClass]="{'selected': product?.qualification >=5 }">
+                <fa-icon icon="star"></fa-icon>
+              </div>
+              <span class="ml-1 fs-0">8 reseñas</span>
+            </div>
+          </ion-col>
+          <ion-col class="d-flex youtube-sans-light fire">
+            <ion-icon class="fs-1" name="flame-outline"></ion-icon>
+            <span class="ml-1">6 vendidos</span>
+          </ion-col>
+        </ion-row>
+
+        <ion-grid class="fs-0 mt-1">
+          <ion-row>
+            <ion-col size="3"><span class="class-title">Raza</span></ion-col>
+            <ion-col><span class="class-value">Gyrolando</span></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3"><span class="class-title">Código genético</span></ion-col>
+            <ion-col><span class="class-value">Gyrolando</span></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3"><span class="class-title">Disponibiliad</span></ion-col>
+            <ion-col><span class="class-value">Disponible</span></ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

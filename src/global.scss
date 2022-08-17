@@ -58,6 +58,10 @@
         url('./assets/fonts/youtube-sans/youtube-sans-light.svg#YoutubeSansLight') format('svg');
 }
 
+.youtube-sans-light {
+    font-family: YoutubeSansLight;
+}
+
 html {
     --ion-default-font: YoutubeSansMedium !important;
 }
@@ -70,7 +74,7 @@ app-menu-side ion-toolbar.main-toolbar {
     padding: 0px 6vw;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
     app-menu-side ion-toolbar.main-toolbar {
         --min-height: 10vw;
@@ -84,7 +88,7 @@ app-menu-side ion-toolbar.main-toolbar {
 $screen-breakpoints: (
     xs: 0,
     sm: 576px,
-    md: 800px,
+    md: 768px,
     lg: 992px,
     xl: 1200px
 );

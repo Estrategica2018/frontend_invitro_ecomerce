@@ -1,0 +1,69 @@
+.col-1_5 {
+    flex: 0 0 calc(calc(1.5 / var(--ion-grid-columns, 12)) * 100%) !important;
+    width: calc(calc(1.5 / var(--ion-grid-columns, 12)) * 100%) !important;
+    max-width: calc(calc(1.5 / var(--ion-grid-columns, 12)) * 100%) !important;
+    text-align: center;
+}
+
+
+.container-collage {
+    height: 86vh;
+    overflow: overlay;
+    cursor: pointer;
+
+    .image-collage {
+        width: 8vw;
+        height: auto;
+        margin: 1vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .col-1_5 {
+        flex: 0 0 calc(calc(12 / var(--ion-grid-columns, 12)) * 100%) !important;
+        width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%) !important;
+        max-width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%) !important;
+    }
+
+    .container-collage {
+        height: 10vh;
+        overflow: visible;
+    }
+}
+
+.product-name {
+    color: rgb(0, 74, 65);
+}
+
+.star {
+    
+    fa-icon {
+        color: #ddd;
+        margin-left: 0.4em;
+    }
+}
+
+.star.selected fa-icon {
+    color: rgb(250, 169, 2);
+}
+
+.fire {
+    color: rgb(233, 81, 68);
+}
+
+.detail-content {
+    padding-left: 2vw;
+    padding-top: 1vw;
+}
+
+.margin--1 {
+    margin-top: 0.2em;
+}
+
+.class-title {
+    color: rgb(101, 194, 0);
+}
+
+.class-value {
+    font-family: YoutubeSansLight;
+}

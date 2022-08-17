@@ -2,6 +2,8 @@ import { Component, createNgModuleRef, HostListener, OnInit } from '@angular/cor
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation, Swiper } from 'swiper';
 import { Animation, AnimationController } from '@ionic/angular';
 import { ProductsService } from '../../api/products.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LoadingService } from './../../providers/loading.service';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
 
@@ -14,7 +16,7 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
 export class HomePage implements OnInit {
 
   swiperList = [];
-  largeScreen = window.innerWidth >= 800;
+  largeScreen = window.innerWidth >= 768;
   newProducts = [];
   animation: Animation;
   sectionColaboration = 1;
@@ -25,16 +27,21 @@ export class HomePage implements OnInit {
   categorySaleSelected = 1;
   productList = [];
   productListFiltered = [];
+  errors: string;
 
-  constructor(private animationCtrl: AnimationController,
-    private productsApi: ProductsService) {
+  constructor(
+    private animationCtrl: AnimationController,
+    private productsService: ProductsService,
+    private router: Router,
+    private loading: LoadingService,) {
 
   }
 
   ngOnInit() {
-    
-    this.productListInitialize();
 
+    this.productListInitialize();
+    this.newProductListInitialize();
+    
     this.swiperList = [
       {
         "url": "https://invitrocolombia.com.co/wp-content/uploads/2021/03/congelacionEmbriones-2.jpg",
@@ -55,8 +62,6 @@ export class HomePage implements OnInit {
         "description": "Duis aute irure dolor in reprehenderit in voluptate"
       },
     ];
-
-    this.newProducts = this.productsApi.mockNewProducts();
 
     this.colaborationList = [{
       "url_image": "https://res.cloudinary.com/deueufyac/image/upload/v1658008028/e-commerce/foto1_xfofey.png",
@@ -151,49 +156,77 @@ export class HomePage implements OnInit {
 
   }
 
-  productListInitialize() {
-    this.productList = this.productsApi.mockNewProducts();
-    let mbControl = false;
-    this.categorySales = [];
-
-    for(let product of this.productList) {
-      mbControl = false;
-      for(let category of this.categorySales)  {
-        if(category.id == product.category.id) {
-          mbControl = true;
-        } 
-      }
-      if(!mbControl) {
-        this.categorySales.push(product.category);
-      }
-    }
-
-    this.onChangeCategorySale();
+  newProductListInitialize() {
+    this.productsService.getNewProducts()
+      .then((productDetail: any) => {
+        this.newProducts = productDetail;
+      }, error => {
+        this.errors = error;
+      });
   }
 
-  onChangeCategorySale(){
+  productListInitialize() {
+
+    this.loading.present({ message: 'Cargando...' });
+
+    this.productsService.getProducts()
+      .then((productDetail: any) => {
+
+        this.loading.dismiss();
+
+        this.productList = productDetail;
+        let mbControl = false;
+        this.categorySales = [];
+
+        for (let product of this.productList) {
+          mbControl = false;
+          for (let category of this.categorySales) {
+            if (category.id == product.category.id) {
+              mbControl = true;
+            }
+          }
+          if (!mbControl) {
+            this.categorySales.push(product.category);
+          }
+        }
+
+        this.onChangeCategorySale();
+
+      }, error => {
+        this.loading.dismiss();
+        this.errors = error;
+      });
+
+  }
+
+  onChangeCategorySale() {
 
     this.animation = this.animationCtrl.create()
-    .addElement(document.querySelector('.new-product-sales'))
-    .duration(1000)
-    .fromTo('opacity', '0.3', '1');
+      .addElement(document.querySelector('.new-product-sales'))
+      .duration(1000)
+      .fromTo('opacity', '0.3', '1');
 
 
-    this.categorySales.forEach((category:any)=>{
-      category.active =  category.id == this.categorySaleSelected;
+    this.categorySales.forEach((category: any) => {
+      category.active = category.id == this.categorySaleSelected;
     });
 
-    this.productListFiltered = this.productList.filter((product)=>{
-       return product.category && product.category.id == this.categorySaleSelected;
+    this.productListFiltered = this.productList.filter((product) => {
+      return product.category && product.category.id == this.categorySaleSelected;
     });
 
     this.animation.play();
 
   }
 
+  goToUrl(url: string) {
+    this.router.navigate([url]);
+  }
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.largeScreen = event.target.innerWidth >= 800;
+    this.largeScreen = event.target.innerWidth >= 768;
   }
 
 }
