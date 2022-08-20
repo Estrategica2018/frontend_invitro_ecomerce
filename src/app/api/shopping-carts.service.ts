@@ -121,7 +121,7 @@ export class ShoppingCartsService {
            "amount": amount
        };
        
-       this.http.post(`${SERVER_URL}/api/store/shopping-cart/`,data,httpOptions)
+       this.http.post(`${SERVER_URL}/api/store/shopping-cart`,data,httpOptions)
         .pipe(
           timeout(60000),
           catchError((e: any) => {
@@ -159,7 +159,7 @@ export class ShoppingCartsService {
               })
             };
            const data = {'id': shoppingCart.id, 'state':'A'};
-           this.http.post(`${SERVER_URL}/api/update/shopping-cart/`,data,httpOptions)
+           this.http.post(`${SERVER_URL}/api/update/shopping-cart`,data,httpOptions)
             .pipe(
               timeout(60000),
               catchError((e: any) => {
@@ -197,7 +197,7 @@ export class ShoppingCartsService {
               })
             };
            const data = {'id': shoppingCart.id, 'amount':shoppingCart.amount};
-           this.http.post(`${SERVER_URL}/api/update/shopping-cart/`,data,httpOptions)
+           this.http.post(`${SERVER_URL}/api/update/shopping-cart`,data,httpOptions)
             .pipe(
               timeout(60000),
               catchError((e: any) => {

@@ -166,7 +166,7 @@ export class ProductsService {
         "attr2": "DOB 12/08/2010",
         "price": "$xxxxxxx","category": {"id":2,"name":"Donadoras"},
         "attributes": "Filtro raza 12|filtro 6|otro filtro",
-        "qualification" : "4"
+        "qualification" : "4  "
       }]
   }
 

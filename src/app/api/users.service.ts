@@ -341,7 +341,7 @@ export class UsersService {
   singupValidate(email: string, code: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const data = { 'email': email, 'code': code };
-      this.http.post(`${SERVER_URL}/api/validate_confirm_email/`, data)
+      this.http.post(`${SERVER_URL}/api/validate_confirm_email`, data)
         .pipe(
           timeout(60000),
           catchError((e: any) => {
