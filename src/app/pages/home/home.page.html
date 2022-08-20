@@ -4,6 +4,14 @@
 </ion-header>
 
 <ion-content>
+  
+  <ion-item [hidden]="!errors" class="not-found">
+    <div class="alert alert-danger alert-dismissible m-auto">
+      <a href="javascript:void(0)" class="close" aria-label="close" (click)="errors=null" title="close">×</a>
+      <strong></strong> {{errors}}
+    </div>
+  </ion-item>
+
   <div class="padding-container">
     <ion-row>
       <swiper [autoplay]="true" [keyboard]="true" [navigation]="true" class="swiper">
@@ -22,7 +30,7 @@
         </ng-template>
       </swiper>
     </ion-row>
-
+    
     <ion-row class="menu-tabs padding-container">
       <div class="tab-menu"><span>.....</span></div>
     </ion-row>
