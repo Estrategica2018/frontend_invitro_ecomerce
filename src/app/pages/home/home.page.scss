@@ -1,3 +1,5 @@
+@import '../services-list/services-list.page.scss';
+
 .swiper-image {
     height: 30vw !important;
     width: 100% !important;
@@ -72,172 +74,87 @@
 }
 
 
-.services-info-flex.large-screen {
-    width: 100%;
-    display: flex;
-    padding-top: 3vw;
-    padding-bottom: 3vw;
-
-    .services-info-image {
-        width: 57%;
-        height: 34vw;
-    }
-
-    .services-info-legend {
-        position: relative;
-        width: 84%;
-        left: -12%;
-        background: white;
-        top: 8vw;
-        padding: 2vw;
-        height: fit-content;
-
-
-    }
-}
-
-.services-info-flex.small-screen {
-    width: 100%;
-    padding-top: 3vw;
-    margin-bottom: 2vw;
+.banner-image {
+    height: 30vw !important;
+    width: 100% !important;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
     text-align: center;
 
-    .services-info-image {
-        width: 80%;
-        height: auto;
+    .banner-image-title,
+    .banner-image-footer,
+    .banner-image-desc {
+        color: var(--ion-color-primary-contrast);
+        font-family: YoutubeSansLight;
     }
-}
 
-.services-info-flex-left {
-    width: 100%;
-    display: flex;
-    padding-top: 3vw;
-    padding-bottom: 3vw;
-    text-align: center;
-
-    .services-info-image {
-        width: 100vw;
-        height: 33vw;
+    .banner-image-desc {
+        width: 50%;
         margin: auto;
     }
 
-    .services-info-legend {
-        position: relative;
-        left: 6vw;
-        background: white;
-        top: 8vw;
-        padding: 2vw;
-        height: fit-content;
-    }
-}
-
-.services-info-flex-left.small-screen {
-    display: block;
-
-    .services-info-image {
-        width: 80%;
-        height: auto;
+    .banner-image-title {
+        font-family: YoutubeSansBold;
     }
 
-    .services-info-legend {
-        position: relative;
-        left: 1vw;
-        background: white;
-        top: 1vw;
-        padding: 2vw;
-        height: -moz-fit-content;
-        height: fit-content;
+    @media (max-width: 1200px) {
+        .banner-image-desc {
+            width: 70%;
+        }
     }
 
 }
 
 
-.services-info-right.large-screen ion-row {
-    padding-top: 3vw;
-    margin-bottom: 2vw;
+.services-section {
 
+    .title {
+        color: var(--ion-color-primary-contrast);
+        font-family: YoutubeSansBold;
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+        top: 0;
+        width: 56%;
+        margin: auto;
+        padding-bottom: 0.5vw;
+        border-bottom: 0.2vw solid white;
+    }
+    
     ion-col {
-        .services-info-image {
-            width: 100%;
-            height: auto;
+        padding: 1vw;
+        height: 18vw;
+        text-align: center;
+    }
+
+    .service-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 18vw;
+        opacity: 1;
+        max-width: 100%;
+        filter: brightness(0.7);
+    }
+
+    @media (max-width: 768px) {
+
+        .title {
+            width: 50%;
+        }
+
+        ion-col,
+        .service-img {
+            height: 33vw;
+            width: 90%;
+            margin-left: 2.5%;
         }
     }
 }
 
-.services-info-right.small-screen {
-    padding-top: 3vw;
-    margin-bottom: 2vw;
-    text-align: center;
 
-    ion-col {
-        .services-info-image {
-            width: 80%;
-            height: auto;
-        }
-    }
-}
-
-.services-info-legend.large-screen {
-    padding: 2vw;
-
-    .title-legend {
-        color: rgb(0, 74, 65);
-        font-size: 2.2vw;
-    }
-
-    .description-legend {
-        font-family: YoutubeSansLight;
-        width: 40vw;
-        height: auto;
-        margin-top: 1vw;
-        margin-bottom: 1vw;
-        font-size: 1.3vw;
-    }
-
-    .button-legend {
-        font-family: YoutubeSansMedium;
-        font-size: 1vw;
-    }
-}
-
-.services-info-legend.small-screen {
-    padding: 2vw;
-    background: white;
-    text-align: center;
-
-    .title-legend {
-        color: rgb(0, 74, 65);
-        font-size: 4.2vw;
-    }
-
-    .description-legend {
-        font-family: YoutubeSansLight;
-        font-size: 3vw;
-        width: 100%;
-        height: auto;
-        margin-top: 1vw;
-        margin-bottom: 1vw;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .button-legend {
-        font-family: YoutubeSansMedium;
-        font-size: 2vw;
-    }
-}
-
-.linear-color-blue {
-    background: linear-gradient(90deg, rgba(0, 212, 255, 0.1) 57%, rgb(255, 255, 255) 77%);
-}
-
-.linear-color-blue-2 {
-    background: linear-gradient(131deg, rgba(0, 212, 255, 0.1) 21%, rgb(255, 254, 255) 57%);
-}
-
-.background-gray {
-    background: rgba(247, 249, 251, 0.6);
-}
 
 .new-product-sales {
     margin-left: 0.5vw;

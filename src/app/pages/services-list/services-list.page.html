@@ -15,17 +15,25 @@
 
         <ion-grid class="mt-2 p-0">
             <ion-row class="services-section p-0">
-                <ion-col *ngFor="let service of services; let i = index;" [size]="largeScreen ? i == 0 || i == 1 || i == 5 || i == 6 ? 6 : 
+              <ion-col *ngFor="let service of services; let i = index;" [size]="largeScreen ? i == 0 || i == 1 || i == 5 || i == 6 ? 6 : 
                                       i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 9 ? 4 : 12 : 12 ">
-                    <div class="title fs-2 mt-4">{{service.name}}</div>
-                    
-                    <img class="service-img" [src]="service.url_image" [ngClass]="{'pr-1' : largeScreen && (i == 0 || i == 2 || i == 3 || i == 5 || i == 7 || i == 8) ,
+                <div class="title fs-2 mt-4">{{service.name}}</div>
+    
+                <ion-img [ngStyle]="{ 'opacity': service.loaded ? 1 : 0}"
+                class="service-img skeleton-image           " 
+                (onload)="service.loaded = true"
+                (ionImgDidLoad)="service.loaded = true"
+                
+                [src]="service.url_image" [ngClass]="{'pr-1' : largeScreen && (i == 0 || i == 2 || i == 3 || i == 5 || i == 7 || i == 8) ,
                                 'pl-1' : largeScreen && (i == 1 || i == 3 || i == 4 || i == 6 || i == 8 || i == 9),
                                 'pt-1' : (largeScreen && (i >= 2) ) || ( !largeScreen && i > 0)
-                               }">
-                </ion-col>
+                               }"></ion-img>
+                
+    
+                <ion-skeleton-text class="service-img" *ngIf="!service.loaded" [animated]="true"></ion-skeleton-text>
+              </ion-col>
             </ion-row>
-        </ion-grid>
+          </ion-grid> 
     </div>
     <app-footer></app-footer>
 </ion-content>

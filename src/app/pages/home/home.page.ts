@@ -4,6 +4,7 @@ import { Animation, AnimationController } from '@ionic/angular';
 import { ProductsService } from '../../api/products.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingService } from './../../providers/loading.service';
+import {  ServicesService } from '../../api/services.service';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
 
@@ -28,13 +29,16 @@ export class HomePage implements OnInit {
   productList = [];
   productListFiltered = [];
   errors: string;
+  services : any;
 
+  loaded = 0;
+  
   constructor(
     private animationCtrl: AnimationController,
     private productsService: ProductsService,
     private router: Router,
-    private loading: LoadingService,) {
-
+    private loading: LoadingService,
+    private servicesApi: ServicesService) {
   }
 
   ngOnInit() {
@@ -42,6 +46,8 @@ export class HomePage implements OnInit {
     this.productListInitialize();
     this.newProductListInitialize();
     
+    this.services = this.servicesApi.mockServices();
+
     this.swiperList = [
       {
         "url": "https://invitrocolombia.com.co/wp-content/uploads/2021/03/congelacionEmbriones-2.jpg",

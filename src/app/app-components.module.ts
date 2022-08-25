@@ -10,7 +10,6 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart-
 import { AccountComponent } from './components/account/account.component';
 import { NetworkStatusComponent } from './components/network-status/network-status.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +24,7 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     LoginComponent,
     NetworkStatusComponent,
     ShoppingCartComponent,
-    AccountComponent,
+    AccountComponent
   ],
   exports: [
     MenuSideComponent,
@@ -34,7 +33,7 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     LoginComponent,
     NetworkStatusComponent,
     ShoppingCartComponent,
-    AccountComponent,
+    AccountComponent
   ]
 
 })
