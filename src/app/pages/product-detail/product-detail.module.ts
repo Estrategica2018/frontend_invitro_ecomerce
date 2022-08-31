@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProductDetailPageRoutingModule } from './product-detail-routing.module';
 import { ProductDetailPage } from './product-detail.page';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     FormsModule,
     IonicModule,
     ProductDetailPageRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxImageZoomModule
   ],
   declarations: [ProductDetailPage]
 })

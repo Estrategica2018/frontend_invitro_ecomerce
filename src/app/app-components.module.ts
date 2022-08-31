@@ -9,13 +9,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart-component';
 import { AccountComponent } from './components/account/account.component';
 import { NetworkStatusComponent } from './components/network-status/network-status.component';
+import { SubscriptionPlanComponent } from './components/subscription-plan/subscription-plan.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     MenuSideComponent,
@@ -24,7 +26,8 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     LoginComponent,
     NetworkStatusComponent,
     ShoppingCartComponent,
-    AccountComponent
+    AccountComponent,
+    SubscriptionPlanComponent
   ],
   exports: [
     MenuSideComponent,
@@ -33,7 +36,9 @@ import { NetworkStatusComponent } from './components/network-status/network-stat
     LoginComponent,
     NetworkStatusComponent,
     ShoppingCartComponent,
-    AccountComponent
+    AccountComponent,
+    SubscriptionPlanComponent,
+    
   ]
 
 })

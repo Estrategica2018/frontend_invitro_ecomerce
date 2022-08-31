@@ -19,6 +19,37 @@ export class AppAdminService {
     private usersService: UsersService
   ) { }
  
+  updateApp(scene: any): any {
+    return new Promise((resolve, reject) => {
+        this.usersService.getUser().then((userDataSession: any)=>{
+            const httpOptions = {
+              headers: new HttpHeaders({
+                  'Authorization':  'Bearer ' + userDataSession.token
+              })
+            };
+            const newScene = processDataToString(scene);
+            this.http.post(`${SERVER_URL}/api/app/update/${newScene.id}`,newScene,httpOptions)
+            .pipe(
+              timeout(60000),
+              catchError((e: any) => {
+                const msg = (e.error && e.error.message) ? e.error.message : e.status + ' - ' + e.statusText;
+                throw new Error(`${msg}`);
+              })
+            )
+            .subscribe((data : any )=> {
+                if(data.success) {
+                  resolve(processData(data));
+                }
+                else {
+                    reject(JSON.stringify(data));
+                }
+            },error => {
+                reject(error)
+            });
+        });
+    });
+  }  
+
   updateTermsAndCondition(termsAndCondition: any): any {
     return new Promise((resolve, reject) => {
         this.usersService.getUser().then((userDataSession: any)=>{

@@ -22,10 +22,10 @@
             <div class="swiper-image-title fs-1">{{swiper.title}}</div>
             <div class="swiper-image-name fs-3">{{swiper.name}}</div>
             <div class="swiper-image-desc fs-1 mt-1 mb-1">{{swiper.description}}</div>
-            <div class="swiper-image-button">
+            <!--div class="swiper-image-button">
               <ion-button [size]="!largeScreen ? 'small' :'large'" class="green-light fs-0" shape="round">Comprar ahora
               </ion-button>
-            </div>
+            </div-->
           </div>
         </ng-template>
       </swiper>
@@ -68,9 +68,14 @@
               (click)="goToUrl('Producto/'+product.id)" class="product-item">
               <img class="product-image shadow-box-2" [src]="product.image_url">
               <div class="product-title cursor-pointer mt-1 fs-1 ">{{product.name}}</div>
-              <div class="mt-1 product-detail fs-0">{{product.attr1}}</div>
-              <div class="mt-0 product-detail fs-0">{{product.attr2}}</div>
-              <div class="mt-1 product-price fs-1">{{product.price}}</div>
+              <div class="mt-0 product-detail fs-0">{{product.detail.attr1}}</div>
+              <div class="mt-0 product-detail fs-0">{{product.detail.attr2}}</div>
+              <div class="mt-0 product-price fs-1 mb-1">${{product.price  |currency: 'COP':'':'1.0'}}</div>
+              <div class="favorite-icon fs-1" 
+                   [ngClass]="{'selected':product.isFavorite,'large-screen':largeScreen, 'small-screen': !largeScreen}">
+                <ion-icon name="heart" *ngIf="product.isFavorite">false</ion-icon>
+                <ion-icon name="heart-outline" *ngIf="!product.isFavorite">true</ion-icon>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -80,12 +85,14 @@
 
       <ion-grid class="mt-2 p-0">
         <ion-row class="services-section p-0">
-          <ion-col  class="grayscale cursor-pointer" *ngFor="let service of services; let i = index;" [size]="largeScreen ? i == 0 || i == 1 || i == 5 || i == 6 ? 6 : 
+          <ion-col  (click)="service.productList ? goToUrl('Productos') : goToUrl('Servicio/'+service.id)" 
+          class="zoom-scale cursor-pointer" *ngFor="let service of services; let i = index;"
+           [size]="largeScreen ? i == 0 || i == 1 || i == 5 || i == 6 ? 6 : 
                                   i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 9 ? 4 : 12 : 12 ">
             <div class="title fs-2 mt-4">{{service.name}}</div>
 
             <ion-img [ngStyle]="{ 'opacity': service.loaded ? 1 : 0}" class="service-img skeleton-image"
-              (onload)="service.loaded = true" (ionImgDidLoad)="service.loaded = true" [src]="service.url_image"
+              (onload)="service.loaded = true" (ionImgDidLoad)="service.loaded = true" [src]="service.image_url"
               [ngClass]="{'pr-1' : largeScreen && (i == 0 || i == 2 || i == 3 || i == 5 || i == 7 || i == 8) ,
                             'pl-1' : largeScreen && (i == 1 || i == 3 || i == 4 || i == 6 || i == 8 || i == 9),
                             'pt-1' : (largeScreen && (i >= 2) ) || ( !largeScreen && i > 0)
@@ -115,26 +122,6 @@
         </div>
       </ion-row>
     </div>
-
-    <!--ion-row>
-      <ion-grid class="new-product linear-color-blue-2 ion-text-center"
-        [ngClass]="{'large-screen':largeScreen, 'small-screen': !largeScreen}">
-        <ion-row>
-          <ion-col>
-            <div class="product-title-section">Nuevos productos</div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="new-product-legend" [size]="largeScreen ? 4 : 12" *ngFor="let product of newProducts">
-            <img class="product-image shadow-box-2" [src]="product.image_url">
-            <div class="product-title mt-1 fs-1">{{product.name}}</div>
-            <div class="mt-1 product-detail fs-0">{{product.attr1}}</div>
-            <div class="mt-0 product-detail fs-0">{{product.attr2}}</div>
-            <div class="mt-1 product-price fs-1">{{product.price}}</div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-row-->
     <ion-row>
       <ion-grid class="background-gray ion-text-center">
         <ion-row>
@@ -198,7 +185,7 @@
             dictumst. In sed consequat turpis.
           </div>
           <div>
-            <ion-button color="success" class="button-legend" shape="round">Envíanos un correo</ion-button>
+            <ion-button  (click)="goToUrl('Contacto')" color="success" class="button-legend" shape="round">Envíanos un correo</ion-button>
           </div>
         </div>
         <img class="services-info-image"
@@ -215,7 +202,7 @@
             dictumst. In sed consequat turpis.
           </div>
           <div>
-            <ion-button color="success" class="button-legend" shape="round">Envíanos un correo</ion-button>
+            <ion-button color="success"  (click)="goToUrl('Contacto')" class="button-legend" shape="round">Envíanos un correo</ion-button>
           </div>
         </div>
       </div>

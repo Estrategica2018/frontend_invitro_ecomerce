@@ -4,7 +4,7 @@ import { Animation, AnimationController } from '@ionic/angular';
 import { ProductsService } from '../../api/products.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingService } from './../../providers/loading.service';
-import {  ServicesService } from '../../api/services.service';
+import { ServicesService } from '../../api/services.service';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
 
@@ -29,10 +29,10 @@ export class HomePage implements OnInit {
   productList = [];
   productListFiltered = [];
   errors: string;
-  services : any;
+  services: any;
 
   loaded = 0;
-  
+
   constructor(
     private animationCtrl: AnimationController,
     private productsService: ProductsService,
@@ -45,8 +45,17 @@ export class HomePage implements OnInit {
 
     this.productListInitialize();
     this.newProductListInitialize();
-    
-    this.services = this.servicesApi.mockServices();
+
+    this.servicesApi.getServices().then((services) => {
+      this.services = services;
+      this.services.push({
+        "productList": 1,
+        "name": "Venta de genética",
+        "image_url": "https://invitrocolombia.com.co/wp-content/uploads/2021/03/congelacion-1024x683.jpg"
+      });
+
+    }, error => this.errors = error);
+
 
     this.swiperList = [
       {

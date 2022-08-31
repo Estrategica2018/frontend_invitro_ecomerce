@@ -7,14 +7,29 @@
   <ion-grid>
     <ion-row>
       <ion-col class="col-1_5">
-        <div class="container-collage">
-          <div>
-            <img *ngFor="let url of product?.images" (click)="onUrlSelect(url)" class="image-collage" [src]="url">
+        <div class="container-collage ion-justify-content-center">
+          <div *ngFor="let slideImage of product?.slide_images_url" [ngClass]="{'slide-selected': slideImage == slideImageSelect}">
+
+            <img (click)="onUrlSelect(slideImage)" class="image-collage" [src]="slideImage.thumb" *ngIf="slideImage.thumb">
+            <img (click)="onUrlSelect(slideImage)" class="image-collage" [src]="slideImage" *ngIf="!slideImage.thumb">
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" size-md="4">
-        <img class="image-selected" [src]="urlSelect">
+      <ion-col size="12" size-md="4" class="text-align-center">
+
+        <lib-ngx-image-zoom *ngIf="slideImageSelect && slideImageSelect.thumb"
+          [thumbImage]="'https://res.cloudinary.com/deueufyac/image/upload/v1660526819/e-commerce/productos/foto_g1wxej.png'"
+          [fullImage]="'https://res.cloudinary.com/deueufyac/image/upload/v1661914259/e-commerce/productos/zoom_t2dz7m.png'"
+          [magnification]="1" [enableScrollZoom]="true" [enableLens]="true" [lensHeight]="200" [lensWidth]="400">
+        </lib-ngx-image-zoom>
+
+        <img class="image-selected" [src]="slideImageSelect" *ngIf="slideImageSelect && !slideImageSelect.thumb">
+
+        <div class="favorite-icon fs-1"
+          [ngClass]="{'selected':product?.isFavorite,'large-screen':largeScreen, 'small-screen': !largeScreen}">
+          <ion-icon name="heart" *ngIf="product?.isFavorite">false</ion-icon>
+          <ion-icon name="heart-outline" *ngIf="!product?.isFavorite">true</ion-icon>
+        </div>
       </ion-col>
       <ion-col size="12" size-md="6" class="detail-content">
         <ion-row class="product-name fs-1">{{product?.name2 || 'HOUSAm0069981349 | DOB | 12/28/2010'}}</ion-row>

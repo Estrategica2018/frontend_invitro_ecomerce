@@ -26,7 +26,8 @@
                 </div>
             </div>
         </ion-row>
-        <ion-row class="filter-attr-container d-flex padding-container" *ngIf="categorySelected && categorySelected.attributes">
+        <ion-row class="filter-attr-container d-flex padding-container"
+            *ngIf="categorySelected && categorySelected.attributes">
             <div fill="outline" (click)="onChangeCategorySale(categorySelected, attr)"
                 [ngClass]="{'selected': attributeSelected == attr}" class="filter-attr-item fs-0"
                 *ngFor="let attr of categorySelected.attributes">{{attr}}
@@ -37,13 +38,19 @@
             <ion-grid class="products-section linear-color-blue-2 ion-text-center">
                 <ion-row>
                     <ion-col class="product-legend" [size]="largeScreen ? 4 : 12"
-                        (click)="goToUrl('Producto/'+product.id)"
-                        *ngFor="let product of productListFiltered" class="product-item"> 
-                        <img class="product-image shadow-box-2" [src]="product.image_url">
+                        (click)="goToUrl('Producto/'+product.id)" *ngFor="let product of productListFiltered"
+                        class="product-item">
+                        <img class="product-image shadow-box-2 mt-2" (ionImgDidLoad)="product.loaded = true"
+                            [src]="product.image_url">
                         <div class="product-title mt-1 fs-1">{{product.name}}</div>
                         <div class="mt-1 product-detail fs-0">{{product.attr1}}</div>
                         <div class="mt-0 product-detail fs-0">{{product.attr2}}</div>
-                        <div class="mt-1 product-price fs-1">{{product.price}}</div>
+                        <div class="mt-0 product-price fs-1 mb-1">${{product.price |currency: 'COP':'':'1.0'}}</div>
+                        <div class="favorite-icon fs-1"
+                            [ngClass]="{'selected':product.isFavorite,'large-screen':largeScreen, 'small-screen': !largeScreen}">
+                            <ion-icon name="heart" *ngIf="product.isFavorite">false</ion-icon>
+                            <ion-icon name="heart-outline" *ngIf="!product.isFavorite">true</ion-icon>
+                        </div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

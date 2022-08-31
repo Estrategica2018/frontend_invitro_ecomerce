@@ -19,6 +19,11 @@ export class AboutPage implements OnInit {
     private router: Router,
   ) { }
 
+
+  ionViewWillEnter() {
+    window.dispatchEvent(new CustomEvent("onChange:menuSide", { "detail": { "segmentInit": 4 } }));
+  }
+
   ngOnInit() {
     
     this.loading.present({ message: 'Cargando...' });
@@ -26,7 +31,7 @@ export class AboutPage implements OnInit {
     this.appService.getAppSite()
       .then((app: any) => {
         this.loading.dismiss();
-        this.sections=app.pages.about.sections;
+        //this.sections=app.pages.about.sections;
       }, error => {
         this.loading.dismiss();
       });

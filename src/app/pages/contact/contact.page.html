@@ -1,3 +1,86 @@
+<ion-header class="ion-no-border  padding-container">
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
 <ion-content>
+    <ion-grid>
+        <ion-row [ngStyle]="{'height':'4vw'}"></ion-row>
+        <ion-row>
+            <ion-col size="12" size-md="6">
+                <!--if banner is Contact-->
+                <div *ngIf="banner && banner.__contactForm" class="p-3 m-auto contact-form" [ngStyle]="{
+                    'background-color': banner.backgroundColor,
+                    'font-size': banner.fontSize + 'px',
+                    'font-family': ( banner.fontFamily ? banner.fontFamily : 'YoutubeSansMedium' ),
+                    'font-weight': banner.fontWeight,
+                    'color': banner.fontColor,
+                    'border-color': banner.border && banner.border.style != 'none' ? banner.border.color : '',
+                    'border-style': banner.border && banner.border.style != 'none' ? banner.border.style : '',
+                    'border-radius': banner.border.radius + 'px',
+                    'border-width': banner.border.width  + 'px',
+                    'text-align': banner.textAlign,
+                    'box-shadow': (banner.shadowActivate ? banner?.shadowRight+'px ' + banner?.shadowDown+'px '+ banner?.shadowDisperse+'px '  +  banner?.shadowExpand+'px ' +  ( banner?.shadowColor || 'black') : '') 
+                }">
+                    <form [formGroup]="banner.__contactForm" (ngSubmit)="contactSendForm(banner.__contactForm)">
+                        <p class="d-flex mt-1">
+                            <span style="color: rgb(224, 62, 45);">*</span>
+                            <span [ngStyle]="{'color': banner.fontColor}"> Nombre </span>
+                        </p>
+
+                        <input formControlName="name" type="text" class="ion-text-start mt-1">
+
+                        <p class="d-flex mt-1">
+                            <span style="color: rgb(224, 62, 45);">*</span>
+                            <span [ngStyle]="{'color': banner.fontColor}"> Correo electrónico </span>
+                        </p>
+
+                        <input formControlName="email" type="text" class="ion-text-start mt-1">
+
+                        <p class="d-flex mt-1">
+                            <span style="color: rgb(224, 62, 45);">*</span>
+                            <span [ngStyle]="{'color': banner.fontColor}"> Asunto </span>
+                        </p>
+
+                        <input formControlName="subject" type="text" class="ion-text-start mt-1">
+
+                        <textarea placeholder="Mensaje" type="text" rows="6" cols="20" maxlength="500"
+                            formControlName="message" class="contact-text-area ion-text-justify  mt-1"
+                            [ngStyle]="{ 'border-radius': ( banner.size.w * 0.3 ) + 'px'}">
+                        </textarea>
+
+                        <div *ngIf="banner?.__contactForm?.value?.message?.length > 0" [ngStyle]="{'color': 'gray'}" }>
+                            caracteres
+                            {{banner?.__contactForm?.value?.message?.length}} / 500</div>
+
+                        <ion-button class="mt-1" color="primary" type="submit"
+                            [disabled]="!banner.__contactForm?.valid">
+                            <ion-label> Enviar Mensaje</ion-label>
+                            <ion-icon slot="end" name="paper-plane-outline"></ion-icon>
+                        </ion-button>
+                    </form>
+                </div>
+                <!--End if banner is Contact-->
+
+            </ion-col>
+            <ion-col size="12" size-md="6" *ngIf="bannerImage">
+                <div class="m-auto">
+                    <ion-img [src]="bannerImage.image_url" class="social-content z-index--1">
+                    </ion-img>
+                    <div *ngFor="let socialContact of bannerImage.social; let i = index"
+                        class="zoom-scale social-content-item-{{i}} position-absolute z-index-1">
+                        <a [href]="socialContact.url" target="_blank">
+                            <img [src]="socialContact.image_url">
+                            <div class="fs-1"> {{socialContact.text}}</div>
+                        </a>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row [ngStyle]="{'height':'4vw'}"></ion-row>
+    </ion-grid>
+
+
+
     <app-footer></app-footer>
 </ion-content>

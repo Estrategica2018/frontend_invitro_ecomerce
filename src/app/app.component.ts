@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuController, Platform, ToastController, ModalController } from '@ionic/angular';
 import { LoginComponent } from './components/login/login.component';
+import { SubscriptionPlanComponent } from './components/subscription-plan/subscription-plan.component';
 import { UsersService } from './api/users.service';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart-component';
 import { ShoppingCartsService } from './api/shopping-carts.service';
@@ -36,6 +37,7 @@ export class AppComponent {
     this.listenForLoginEvents();
     this.getShoppingCart();
     this.checkLoginStatus();
+    this.presentSubscriptionPlans();
   }
 
   listenForLoginEvents() {
@@ -83,6 +85,22 @@ export class AppComponent {
     }
   }   
 
+
+  async presentSubscriptionPlans() {
+    
+    this.modal = await this.modalCtrl.create({
+      component: SubscriptionPlanComponent,
+      cssClass: 'boder-radius-modal large-screen',
+      componentProps: {
+        
+      }
+    });
+    await this.modal.present();
+    const { data } = await this.modal.onWillDismiss();
+
+    if(data) {
+    }
+  }  
 
   async presenterLoginModal(showMenu, errors, emailRecovery, tokenRecovery) {
 

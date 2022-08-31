@@ -7,7 +7,7 @@
     <ion-img [ngStyle]="{'margin-left': largeScreen ? '3vw' : '0em'} " slot="start" class="icon-img" [src]="site?.icon">
     </ion-img>
 
-    <ion-segment [value]="'menu-item-'+segmentInit" *ngIf="largeScreen">
+    <ion-segment [(ngModel)]="segmentInit" *ngIf="largeScreen">
       <ion-segment-button [value]="'menu-item-' + i" class="menu-title" *ngFor="let p of appPages; let i = index"
         (click)="goToUrl(p.url)">
         <ion-label class="fs-0">{{ p.title }}</ion-label>

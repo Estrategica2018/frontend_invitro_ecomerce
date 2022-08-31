@@ -179,7 +179,8 @@
     }
 
     .product-image {
-        width: 100%;
+        width: 16vw;
+        height: 11vw;
     }
 
     .product-title-section {
@@ -206,6 +207,7 @@
 
     .product-image {
         width: 60%;
+        height: 60%;
     }
 
     .product-title-section {
@@ -394,7 +396,7 @@
 }
 
 .menu-tabs {
-    margin-top: -2.6vw;
+    margin-top: -3vw;
     display: flex;
 
     .tab-menu {
@@ -405,7 +407,7 @@
         min-width: 14vw;
         text-align: center;
         margin-left: 0.5vw;
-        height: 3.2vw;
+        height: 3vw;
         cursor: pointer;
     }
 
@@ -497,7 +499,7 @@
 
 @media screen and (max-width: 768px) {
     .menu-tabs {
-        margin-top: -4.6vw;
+        margin-top: -5.2vw;
     }
 
     .sales {
@@ -506,5 +508,41 @@
 
     .padding-container-services{
         padding: 0;
+    }
+}
+
+
+.favorite-icon {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    background: white;
+    border-radius: 63%;
+    padding: 0.5vw 0vw;
+    height: 2vw;
+    width: 2vw;
+    font-size: 1vw !important;
+}
+
+.favorite-icon.selected {
+    border: 1px solid rgb(0 0 0 / 12%);
+
+    ion-icon {
+        color: #EF3B51;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .favorite-icon {
+        position: absolute;
+        top: 1vw;
+        right: 20vw;
+        padding: 0.6vw 0vw;
+        height: 5vw;
+        width: 5vw;
+
+        ion-icon {
+            font-size: 4vw;
+        }
     }
 }

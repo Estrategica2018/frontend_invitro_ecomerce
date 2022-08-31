@@ -1,0 +1,349 @@
+.tabs-menu-scene {
+  position: absolute;
+}
+
+@media (max-width: 478px) {
+  .tabs-menu-scene ion-button ion-label {
+    font-size: 10px;
+  }
+}
+
+
+.tabs-menu-scene {
+   background-color: transparent;
+}
+
+/***** init menu tab position bottom *****/
+.tabs-menu-scene.bottom {
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
+  padding-right: 18px;
+  min-width: 140px;
+  min-height: 43px;
+  ion-button:first-child {
+    margin-left: 128px;
+  }
+}
+
+.tabs-menu-scene.bottom.no-icon {
+  ion-button:first-child {
+    margin-left: 2.7em;
+  }
+}
+
+.tabs-menu-scene.bottom::before {
+   content: "";
+   position: absolute;
+   bottom: -4px;
+   left: -29px;
+   height: 39px;
+   width: 21px;
+   border-top-left-radius: 21px;
+   box-shadow: 0 -17px 0 0 transparent;
+   transform: rotateZ(270deg) rotateX(180deg);
+}
+
+.tabs-menu-scene.bottom::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    right: -29px;
+    height: 39px;
+    width: 21px;
+    border-top-left-radius: 21px;
+    box-shadow: 0 -17px 0 0 transparent;
+    transform: rotateZ(270deg) rotateX(0deg);
+}
+
+.tabs-menu-scene.bottom .head {
+    position: absolute;
+    top: 0px;
+    left: 34px;
+    width: 70px;
+    height: 85%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 31px;
+    img {
+        width: 33px;
+        margin-left: 8px;
+        position: absolute;
+        left: 12px;
+        height: 30px;
+    }
+}
+.tabs-menu-scene.bottom .head::before {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    left: -25px;
+    height: 39px;
+    width: 19px;
+    border-top-left-radius: 55px;
+    transform: rotateZ(270deg) rotateX(180deg) rotateY(180deg);
+}
+.tabs-menu-scene.bottom .head::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    right: -25px;
+    height: 39px;
+    width: 19px;
+    border-top-left-radius: 55px;
+    transform: rotateZ(270deg) rotateX(0deg) rotateY(180deg);
+}
+/***** end menu tab position bottom *****/
+
+/***** init menu tab position top *****/
+.tabs-menu-scene.top {
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+  padding-right: 18px;
+  min-width: 140px;
+  min-height: 43px;
+  ion-button:first-child {
+    margin-left: 128px;
+  }
+}
+
+.tabs-menu-scene.top.no-icon {
+  ion-button:first-child {
+    margin-left: 2.7em;
+  }
+}
+
+
+.tabs-menu-scene.top::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: -29px;
+    height: 39px;
+    width: 21px;
+    border-bottom-left-radius: 21px;
+    box-shadow: 0 -17px 0 0 transparent;
+    transform: rotateZ(90deg) rotateX(180deg);
+}
+
+.tabs-menu-scene.top::after {
+    content: "";
+    position: absolute;
+    top: -14px;
+    right: -29px;
+    height: 39px;
+    width: 21px;
+    border-bottom-left-radius: 21px;
+    box-shadow: 0 -17px 0 0 transparent;
+    transform: rotateZ(90deg) rotateX(0deg);
+}
+
+.tabs-menu-scene.top .head {
+    position: absolute;
+    bottom: 0px;
+    left: 34px;
+    width: 70px;
+    height: 85%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 31px;
+    img {
+        width: 33px;
+        margin-left: 8px;
+        position: absolute;
+        left: 12px;
+        height: 30px;
+    }
+}
+.tabs-menu-scene.top .head::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: -25px;
+    height: 39px;
+    width: 19px;
+    border-bottom-left-radius: 55px;
+    transform: rotateZ(90deg) rotateX(180deg) rotateY(180deg);
+}
+.tabs-menu-scene.top .head::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: -25px;
+    height: 39px;
+    width: 19px;
+    border-bottom-left-radius: 55px;
+    transform: rotateZ(90deg) rotateX(0deg) rotateY(180deg);
+}
+/***** end menu tab position bottom *****/
+
+/***** init menu tab position right *****/
+
+.tabs-menu-scene.right {
+  border-bottom-left-radius: 26px;
+  border-top-left-radius: 26px;
+  width: 39px;
+  min-height: 140px;
+  padding-bottom: 18px;
+  ion-button:first-child {
+    margin-top: 128px;
+  }
+  ion-button  {
+    --padding-start: 6px;
+    --padding-end: 6px;
+  }
+}
+
+.tabs-menu-scene.right.no-icon {
+  ion-button:first-child {
+    margin-top: 2.7em;
+  }
+}
+
+.tabs-menu-scene.right::before {
+  content: "";
+  position: absolute;
+  right: 0px;
+  bottom: -39px;
+  height: 39px;
+  width: 21px;
+  border-bottom-right-radius: 21px;
+  box-shadow: 0 -17px 0 0 transparent;
+  transform: rotateZ(0deg) rotateX(180deg);
+}
+
+.tabs-menu-scene.right::after {
+  content: "";
+  position: absolute;
+  top: -39px;
+  right: 0px;
+  height: 39px;
+  width: 21px;
+  border-bottom-right-radius: 21px;
+  box-shadow: 0 -17px 0 0 transparent;
+  transform: rotateZ(0deg) rotateX(0);
+}
+
+.tabs-menu-scene.right .head {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  width: 85%;
+  height: 70px;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 31px;
+  img {
+    width: 33px;
+    margin-top: 8px;
+    position: absolute;
+    top: 12px;
+    height: 30px;
+  }
+}
+.tabs-menu-scene.right .head::before {
+  content: "";
+  position: absolute;
+  top: -35px;
+  right: 14px;
+  height: 39px;
+  width: 19px;
+  border-bottom-right-radius: 55px;
+  transform: rotateZ(0deg) rotateX(180deg) rotateZ(180deg);
+}
+.tabs-menu-scene.right .head::after {
+  content: "";
+  position: absolute;
+  bottom: -35px;
+  right: 14px;
+  height: 39px;
+  width: 19px;
+  border-bottom-left-radius: 55px;
+  transform: rotateZ(0deg) rotateX(180deg) rotateY(0deg);
+}
+
+/***** end menu tab position right *****/
+
+
+/***** init menu tab position left *****/
+
+.tabs-menu-scene.left {
+  border-bottom-right-radius: 26px;
+  border-top-right-radius: 26px;
+  width: 4em;
+  min-height: 140px;
+  padding-bottom: 18px;
+  ion-button:first-child {
+    margin-top: 128px;
+  }
+  ion-button  {
+    --padding-start: 6px;
+    --padding-end: 6px;
+  }
+}
+
+.tabs-menu-scene.left.no-icon {
+  ion-button:first-child {
+    margin-top: 2.7em;
+  }
+}
+
+.tabs-menu-scene.left::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: -39px;
+  height: 39px;
+  width: 21px;
+  border-bottom-left-radius: 21px;
+  box-shadow: 0 -17px 0 0 transparent;
+  transform: rotateZ(0deg) rotateX(180deg);
+}
+
+.tabs-menu-scene.left::after {
+  content: "";
+  position: absolute;
+  top: -39px;
+  left: 0px;
+  height: 39px;
+  width: 21px;
+  border-bottom-left-radius: 21px;
+  box-shadow: 0 -17px 0 0 transparent;
+  transform: rotateZ(0deg) rotateX(0);
+}
+
+.tabs-menu-scene.left .head {
+  position: absolute;
+  top: 32px;
+  right: 0px;
+  width: 85%;
+  height: 70px;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 31px;
+  img {
+    width: 33px;
+    position: absolute;
+    top: 21px;
+    height: 30px;
+    right: -4px;
+  }
+}
+.tabs-menu-scene.left .head::before {
+  content: "";
+  position: absolute;
+  top: -35px;
+  right: 0px;
+  height: 39px;
+  width: 19px;
+  border-bottom-right-radius: 55px;
+  transform: rotateZ(180deg) rotateX(360deg) rotateZ(180deg);
+}
+
+.tabs-menu-scene.left .head::after {
+  content: "";
+  position: absolute;
+  bottom: -35px;
+  right: 0px;
+  height: 39px;
+  width: 19px;
+  border-bottom-left-radius: 55px;
+  transform: rotateZ(180deg) rotateX(0deg) rotateY(0deg);
+}
+/***** end menu tab position left *****/
+

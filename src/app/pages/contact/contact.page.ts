@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonSlides } from "@ionic/angular";
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AppService } from '../../api/app.service';
+import { LoadingService } from './../../providers/loading.service';
 
-declare var Swiper;
 
 @Component({
   selector: 'app-contact',
@@ -12,123 +14,62 @@ export class ContactPage implements OnInit {
 
   @ViewChild('slides', { static: true }) ionSlides: IonSlides;
 
+  banner: any;
+  bannerImage: any;
+
   slideOpts: any;
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private appService: AppService,
+    private loading: LoadingService) { }
+
+  ionViewWillEnter() {
+    window.dispatchEvent(new CustomEvent("onChange:menuSide", { "detail": { "segmentInit": 4 } }));
+  }
 
   ngOnInit() {
-    const swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: true,
-    
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-      },
-    
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    
+
+    this.loading.present({ message: 'Cargando...' });
+
+    this.appService.getAppSite()
+      .then((app: any) => {
+        this.loading.dismiss();
+        this.initializeContact();
+      }, error => {
+        this.loading.dismiss();
+      });
+  }
+
+  initializeContact() {
+    this.banner = { "groupMode": true, "size": { "x": 347, "y": 642 }, "contact": { "name": "" }, "backgroundColor": "#ffffff", "fontColor": "#000000", "fontSize": "13", "shadowActivate": true, "shadowRight": -8, "shadowDown": 4, "shadowDisperse": 21, "shadowExpand": -16 };
+    this.banner = Object.assign(this._defaultBanner('Contact'), this.banner);
+    this.banner.__contactForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      message: ['', Validators.required],
+      subject: ['', Validators.required]
     });
 
-    this.getSlideOpts();
+    this.bannerImage = { "size": { "x": 114, "y": 105 }, "position": { "x": 156, "y": 195 }, "image_url": "https://res.cloudinary.com/deueufyac/image/upload/v1636592421/sublimacion/celu_blanck_ba9tw0.png" };
+    this.bannerImage = Object.assign(this._defaultBanner('Image'), this.bannerImage);
+    this.bannerImage.social = [
+      { 'text': 'Whatsapp', 'url': 'https://', 'image_url': 'https://res.cloudinary.com/deueufyac/image/upload/v1636595884/sublimacion/ctab_Instagram_jkve9l.png' },
+      { 'text': 'Instagram', 'url': 'https://', 'image_url': 'https://res.cloudinary.com/deueufyac/image/upload/v1636595884/sublimacion/ctab_Instagram_jkve9l.png' },
+      { 'text': 'Facebook', 'url': 'https://', 'image_url': 'https://res.cloudinary.com/deueufyac/image/upload/v1636595884/sublimacion/ctab_Instagram_jkve9l.png' },
+      { 'text': 'Twitter', 'url': 'https://', 'image_url': 'https://res.cloudinary.com/deueufyac/image/upload/v1636595884/sublimacion/ctab_Instagram_jkve9l.png' },
+    ];
   }
 
-
-  getSlideOpts() {
-    this.slideOpts = {
-      slidesPerView: 1,
-      coverflowEffect: {
-        rotate: 30,
-        stretch: 0,
-        depth: 100,
-        slideShadows: true,
-        modifier: 1,
-      },
-      on: {
-        beforeInit() {
-          const swiper = this;
-
-          swiper.classNames.push(`${swiper.params.containerModifierClass}coverflow`);
-          swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
-
-          swiper.params.watchSlidesProgress = true;
-          swiper.originalParams.watchSlidesProgress = true;
-        },
-        setTranslate() {
-          const swiper = this;
-          const {
-            width: swiperWidth, height: swiperHeight, slides, $wrapperEl, slidesSizesGrid, $
-          } = swiper;
-          const params = swiper.params.coverflowEffect;
-          const isHorizontal = swiper.isHorizontal();
-          const transform$$1 = swiper.translate;
-          const center = isHorizontal ? -transform$$1 + (swiperWidth / 2) : -transform$$1 + (swiperHeight / 2);
-          const rotate = isHorizontal ? params.rotate : -params.rotate;
-          const translate = params.depth;
-          // Each slide offset from center
-          for (let i = 0, length = slides.length; i < length; i += 1) {
-            const $slideEl = slides.eq(i);
-            const slideSize = slidesSizesGrid[i];
-            const slideOffset = $slideEl[0].swiperSlideOffset;
-            const offsetMultiplier = ((center - slideOffset - (slideSize / 2)) / slideSize) * params.modifier;
-
-            let rotateY = isHorizontal ? rotate * offsetMultiplier : 0;
-            let rotateX = isHorizontal ? 0 : rotate * offsetMultiplier;
-            // var rotateZ = 0
-            let translateZ = -translate * Math.abs(offsetMultiplier);
-
-            let translateY = isHorizontal ? 0 : params.stretch * (offsetMultiplier);
-            let translateX = isHorizontal ? params.stretch * (offsetMultiplier) : 0;
-
-            // Fix for ultra small values
-            if (Math.abs(translateX) < 0.001) translateX = 0;
-            if (Math.abs(translateY) < 0.001) translateY = 0;
-            if (Math.abs(translateZ) < 0.001) translateZ = 0;
-            if (Math.abs(rotateY) < 0.001) rotateY = 0;
-            if (Math.abs(rotateX) < 0.001) rotateX = 0;
-
-            const slideTransform = `translate3d(${translateX}px,${translateY}px,${translateZ}px)  rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-            $slideEl.transform(slideTransform);
-            $slideEl[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
-            if (params.slideShadows) {
-              // Set shadows
-              let $shadowBeforeEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
-              let $shadowAfterEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
-              if ($shadowBeforeEl.length === 0) {
-                $shadowBeforeEl = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'left' : 'top'}"></div>`);
-                $slideEl.append($shadowBeforeEl);
-              }
-              if ($shadowAfterEl.length === 0) {
-                $shadowAfterEl = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'right' : 'bottom'}"></div>`);
-                $slideEl.append($shadowAfterEl);
-              }
-              if ($shadowBeforeEl.length) $shadowBeforeEl[0].style.opacity = offsetMultiplier > 0 ? offsetMultiplier : 0;
-              if ($shadowAfterEl.length) $shadowAfterEl[0].style.opacity = (-offsetMultiplier) > 0 ? -offsetMultiplier : 0;
-            }
-          }
-
-          // Set correct perspective for IE10
-          if (swiper.support.pointerEvents || swiper.support.prefixedPointerEvents) {
-            const ws = $wrapperEl[0].style;
-            ws.perspectiveOrigin = `${center}px 50%`;
-          }
-        },
-        setTransition(duration) {
-          const swiper = this;
-          swiper.slides
-            .transition(duration)
-            .find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left')
-            .transition(duration);
-        }
-      }
-    };
-    if (this.ionSlides) this.ionSlides.options = this.slideOpts;
+  _defaultBanner(type) {
+    const id = new Date().valueOf();
+    const primaryColor = "#007bff";
+    return {
+      id: id, type: type, border: { "style": "none" },
+    }
   }
 
+  contactSendForm(__contactForm) {
+
+  }
 }

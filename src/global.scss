@@ -117,6 +117,9 @@ $size-value in $screen-breakpoints {
     --width: 60em;
 }
 
+.boder-radius-modal.large-screen {
+    --width: 122em;
+}
 
 .boder-radius-modal::part(content) {
     border-color: none !important;

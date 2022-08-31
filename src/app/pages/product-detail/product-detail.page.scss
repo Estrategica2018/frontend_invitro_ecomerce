@@ -16,6 +16,9 @@
         height: auto;
         margin: 1vw;
     }
+    .slide-selected {
+        border: 1px solid;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -26,8 +29,9 @@
     }
 
     .container-collage {
+        display: flex;
         height: 10vh;
-        overflow: visible;
+        overflow: hidden;
     }
 }
 
@@ -36,7 +40,7 @@
 }
 
 .star {
-    
+
     fa-icon {
         color: #ddd;
         margin-left: 0.4em;
@@ -66,4 +70,55 @@
 
 .class-value {
     font-family: YoutubeSansLight;
+}
+
+.favorite-icon {
+    padding: 0.5vw 0.5vw;
+}
+
+@media screen and (max-width:768px) {
+    .favorite-icon {
+        padding: 1.5vw 1vw;
+        right: 2vw;
+    }
+}
+
+.favorite-icon {
+    position: absolute;
+    top: 1vw;
+    right: 2vw;
+    background: white;
+    border-radius: 63%;
+    padding: 0.5vw 0vw;
+    height: 2vw;
+    width: 2vw;
+    font-size: 1vw !important;
+}
+
+.favorite-icon.selected {
+    border: 1px solid rgb(0 0 0 / 12%);
+
+    ion-icon {
+        color: #EF3B51;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .favorite-icon {
+        position: absolute;
+        top: 1vw;
+        right: 11vw;
+        padding: 0.84vw 0vw;
+        height: 5vw;
+        width: 5vw;
+
+        ion-icon {
+            font-size: 4vw;
+        }
+    }
+}
+
+.ngxImageZoomContainer,
+.image-selected {
+    width: 100%;
 }

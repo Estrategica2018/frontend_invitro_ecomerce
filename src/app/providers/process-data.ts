@@ -7,12 +7,12 @@ export function processData(obj){
     }
     else if(typeof obj == 'object') {
         
-        if(obj.resources && typeof obj.resources == 'string') {
+        if(obj.detail && typeof obj.detail == 'string') {
           try { 
-             obj.resources = JSON.parse(obj.resources );
+             obj.detail = JSON.parse(obj.detail );
           }catch(e) {
              console.log(e);
-             console.log(obj.resources);
+             console.log(obj.detail);
              console.log(obj);
           }
         }
@@ -45,8 +45,8 @@ export function processDataToString(obj){
     }
     else if(typeof obj == 'object') {
         
-        if(obj.resources && typeof obj.resources == 'object') {
-          obj.resources = JSON.stringify(obj.resources);
+        if(obj.detail && typeof obj.detail == 'object') {
+          obj.detail = JSON.stringify(obj.detail);
         }
         if(obj.social_media && typeof obj.social_media == 'object') {
           obj.social_media = JSON.stringify(obj.social_media);

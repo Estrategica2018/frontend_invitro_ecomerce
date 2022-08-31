@@ -37,6 +37,11 @@ export class ProductsListPage implements OnInit {
     private loading: LoadingService,
     private router: Router,) { }
 
+
+  ionViewWillEnter() {
+    window.dispatchEvent(new CustomEvent("onChange:menuSide", { "detail": { "segmentInit": 3 } }));
+  }
+
   ngOnInit() {
     this.productListInitialize();
   }
@@ -44,8 +49,8 @@ export class ProductsListPage implements OnInit {
   productListInitialize() {
 
     this.loading.present({ message: 'Cargando...' });
-    let category : any;
-    
+    let category: any;
+
     this.productsService.getProducts()
       .then((productDetail: any) => {
 
@@ -62,7 +67,7 @@ export class ProductsListPage implements OnInit {
             if (category.id == product.category.id) {
               mbControl = true;
               category = category;
-              break; 
+              break;
             }
           }
           if (!mbControl) {
@@ -117,19 +122,19 @@ export class ProductsListPage implements OnInit {
     });
 
     this.productListFiltered = this.productList.filter((product) => {
-      
-        if (product.category && product.category.id == this.categorySelected.id) {
-          if (attribute) {
-            for (let attr of product.attributes.split('|')) {
-              if (attr == attribute) {
-                return true;
-              }
+
+      if (product.category && product.category.id == this.categorySelected.id) {
+        if (attribute) {
+          for (let attr of product.attributes.split('|')) {
+            if (attr == attribute) {
+              return true;
             }
-            return false;
           }
-          else return true;
+          return false;
         }
-        return false;
+        else return true;
+      }
+      return false;
     });
 
     this.animation.play();

@@ -45,8 +45,21 @@
     }
 
     .product-image {
-        width: 100%;
+        width: 90%;
+        height: 18vw;
     }
+
+    @media (max-width: 768px) {
+        .product-image {
+            height: 33vw;
+            margin-left: 2.5%;
+        }
+    }
+
+
+
+
+
 
     @media screen and (max-width: 768px) {
         .product-image {
@@ -134,4 +147,43 @@
     background-color: rgb(112, 112, 112,0.05);
     border-radius: 10%;
     cursor: pointer;
+}
+
+.favorite-icon {
+    position: absolute;
+    top: 3.4vw;
+    right: 1.8vw;
+    background: white;
+    border-radius: 63%;
+    padding: 0.5vw 0vw;
+    height: 2.5vw;
+    width: 2.5vw;
+    font-size: 1vw !important;
+
+    ion-icon {
+        font-size: 1.5vw;
+    }
+}
+
+.favorite-icon.selected {
+    border: 1px solid rgb(0 0 0 / 12%);
+
+    ion-icon {
+        color: #EF3B51;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .favorite-icon {
+        position: absolute;
+        top: 4vw;
+        right: 19vw;
+        padding: 0.94vw 0vw;
+        height: 6vw;
+        width: 6vw;
+
+        ion-icon {
+            font-size: 4vw;
+        }
+    }
 }

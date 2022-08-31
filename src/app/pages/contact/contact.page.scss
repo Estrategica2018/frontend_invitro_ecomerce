@@ -1,0 +1,169 @@
+.social-content {
+    width: 35vw;
+}
+
+.mt-1 {
+    margin-top: 0.7vw !important
+}
+
+
+.contact-form {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    width: 25vw;
+    border-radius: 1em;
+}
+
+
+
+.contact-form {
+
+    form {
+
+        input,
+        textarea,
+        ion-button {
+            width: 100%;
+            position: relative;
+            top: -16px;
+            height: 3vw;
+        }
+
+        textarea {
+            height: 9vw;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .social-content {
+        width: 60vw;
+        margin: 7vw auto;
+    }
+
+    .mt-1 {
+        margin-left: 1.8vw !important
+    }
+
+    .contact-form {
+        width: 67vw;
+
+        form {
+
+            input,
+            textarea,
+            ion-button {
+                width: 90%;
+                height: 7vw;
+                top: -2vw;
+            }
+
+            textarea {
+                height: 28vw;
+            }
+        }
+    }
+
+}
+
+.social-content-item-0 {
+    top: 2vw;
+    width: 18vw;
+    left: 13vw;
+
+    a div {
+        position: absolute;
+        transform: rotate(9deg);
+        top: 2.5vw;
+    left: 5vw;
+    }
+}
+
+.social-content-item-1 {
+    top: 9vw;
+    width: 18vw;
+    left: 11.2vw;
+
+    a div {
+        position: absolute;
+        transform: rotate(9deg);
+        top: 2.5vw;
+    left: 5vw;
+    }
+}
+
+.social-content-item-2 {
+    top: 16vw;
+    width: 18vw;
+    left: 9.7vw;
+
+    a div {
+        position: absolute;
+        transform: rotate(9deg);
+        top: 2.5vw;
+    left: 5vw;
+    }
+}
+
+.social-content-item-3 {
+    top: 23vw;
+    width: 18vw;
+    left: 8.2vw;
+
+    a div {
+        position: absolute;
+        transform: rotate(9deg);
+        top: 2.5vw;
+    left: 5vw;
+    }
+}
+
+
+
+
+@media screen and (max-width:768px) {
+
+    .social-content-item-0 {
+        top: 10vw;
+        width: 31vw;
+        left: 39vw;
+
+        a div {
+            top: 4vw;
+            left: 8vw;
+        }
+    }
+
+    .social-content-item-1 {
+        top: 22vw;
+        width: 31vw;
+        left: 36.5vw;
+
+        a div {
+            top: 4vw;
+            left: 8vw;
+        }
+    }
+
+    .social-content-item-2 {
+        top: 34vw;
+        width: 31vw;
+        left: 34.1vw;
+
+        a div {
+            top: 4vw;
+            left: 8vw;
+        }
+    }
+
+    .social-content-item-3 {
+        top: 46vw;
+        width: 31vw;
+        left: 31.5vw;
+
+        a div {
+            top: 4vw;
+            left: 8vw;
+        }
+    }
+}

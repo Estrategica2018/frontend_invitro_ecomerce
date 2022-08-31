@@ -16,9 +16,9 @@ export class MenuSideComponent implements OnInit {
 
   largeScreen = window.innerWidth >= 1012;
   userDataSession = false;
-  segmentInit = 0;
+  segmentInit = 'menu-item-0';
   showBannerSideMenu = false;
-  profileRole:any;
+  profileRole: any;
 
   constructor(
     private router: Router,
@@ -42,26 +42,28 @@ export class MenuSideComponent implements OnInit {
 
   ngOnInit() {
 
+    this.listenForMenuSideEvents();
+
     let pathname = window.location.pathname;
     this.appPages.forEach((page, indx) => {
       if (pathname.indexOf(page.url) >= 0) {
-        this.segmentInit = indx;
+        this.segmentInit = 'menu-item-' + indx;
       }
     });
 
     this.profileRole = {};
-    this.usersService.getUser().then((userDataSession: any)=>{
-      this.userDataSession = userDataSession;    
-      
+    this.usersService.getUser().then((userDataSession: any) => {
+      this.userDataSession = userDataSession;
+
       this.profileRole = {};
-      if(userDataSession && userDataSession.user_roles_fair) {
-        userDataSession.user_roles_fair.forEach((role)=>{
-            if(role.id == 1) { //"super_administrador"
-               this.profileRole.admin = true;
-            }
-         });
-      } 
-      
+      if (userDataSession && userDataSession.user_roles_fair) {
+        userDataSession.user_roles_fair.forEach((role) => {
+          if (role.id == 1) { //"super_administrador"
+            this.profileRole.admin = true;
+          }
+        });
+      }
+
     });
   }
 
@@ -72,12 +74,18 @@ export class MenuSideComponent implements OnInit {
     window.dispatchEvent(new CustomEvent('show:login-modal'));
   }
 
-  presentAccount() { 
+  presentAccount() {
     window.dispatchEvent(new CustomEvent('show:account'));
   }
 
   goToUrl(url: string) {
     this.router.navigate([url]);
+  }
+
+  listenForMenuSideEvents() {
+    window.addEventListener('onChange:menuSide', (event: any) => {
+      this.segmentInit = 'menu-item-' + event.detail.segmentInit;
+    });
   }
 
   @HostListener('window:resize', ['$event'])

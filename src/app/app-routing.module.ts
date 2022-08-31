@@ -40,9 +40,21 @@ const routes: Routes = [
     loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
   {
-    path: 'services-detail',
+    path: 'Servicio/:serviceId',
     loadChildren: () => import('./pages/services-detail/services-detail.module').then( m => m.ServicesDetailPageModule)
-  }
+  },
+  {
+    path: 'map-site-editor/show/:sceneId',
+    loadChildren: () => import('./pages/map-site-editor/map-site-editor.module').then( m => m.MapSiteEditorPageModule)
+  },
+  {
+    path: 'map-site-editor/add-scene/:template',
+    loadChildren: () => import('./pages/map-site-editor/map-site-editor.module').then( m => m.MapSiteEditorPageModule)
+  },
+  {
+    path: 'map-site-editor/editor/:sceneId',
+    loadChildren: () => import('./pages/map-site-editor/map-site-editor.module').then( m => m.MapSiteEditorPageModule)
+  },
 ];
 
 @NgModule({
